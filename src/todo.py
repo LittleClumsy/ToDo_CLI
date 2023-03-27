@@ -1,32 +1,14 @@
-import json
-import os
-from os.path import expanduser
-import platform
+"""
+This module/file is the entry point for the todo application.
+"""
 
+from config.config_controller import install_config_file
 
-home = os.path.expanduser('~')
-print(home)
+def main():
+    """
+    The entry point for the todo application.
+    """
+    install_config_file()
 
-
-folder_name = ".todo"
-if not os.path.exists(folder_name):
-    os.makedirs(folder_name)
-    print("Folder created:", folder_name)
-else:
-    print("Folder already exists:", folder_name)
-
-
-
-
-folder_path = os.path.join(os.path.expanduser("~"), folder_name)
-file_path = os.path.join(folder_path, "tasks.json")
-
-
-
-# Write the JSON data to the file
-data = {"test": "Hi","age":30}
-with open(file_path, "w") as f:
-    json.dump(data, f)
-
-
-
+if __name__ == "__main__":
+    main()
