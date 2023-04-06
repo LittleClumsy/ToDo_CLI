@@ -31,5 +31,9 @@ def test_create_directory():
     create_directory(folder_path)
     removedirs(folder_path)
 
-
+def test_create_storage_file():
+    """
+    Allows user to save storage file in specified directory.
+    """
+    
 

@@ -3,7 +3,6 @@ This module will contain all logic pertaining to the operating system.
 """
 
 from os import path, makedirs
-from shutil import copy
 
 
 def get_home_directory() -> str:
@@ -19,6 +18,7 @@ def get_home_directory() -> str:
     """
     return path.expanduser("~")
 
+
 def get_config_directory() -> str:
     """
     Returns the config directory of the application.
@@ -32,6 +32,7 @@ def get_config_directory() -> str:
     """
     return path.join(get_home_directory(), ".todo")
 
+
 def create_directory(folder_path: str) -> None:
     """
     Creates the directory at the given path.
@@ -43,30 +44,30 @@ def create_directory(folder_path: str) -> None:
         makedirs(folder_path)
 
 
-def install_storage_file():
+def join_paths(directory_one: str, directory_two: str) -> str:
     """
-    Creates the Storage files in the directory that the user specifies.
+    Joins two file paths into one if possible. 
 
+    Args:
+        directory_one (str): The first path given. 
+        directory_two (str): The second path given.
+
+    Returns: 
+        str: Two paths joined together.
     """
-    directory_path = input("Enter the directory path where you want to install the file: ")
+
+    return path.join(directory_one, directory_two)
 
 
-    file_to_install = "example_file.txt"  
-    file_path = path.join(directory_path, file_to_install)
+def path_exists(directory: str) -> bool:
+    """
+    This will be used to test if the given path already exists.
 
-    print(directory_path)
-    print(file_path)
+    Args: 
+        directory (str): Path to check if it exists.
 
-    if not path.isdir(directory_path):
-        print("This path doesn't exist.")
-    elif path.exists(file_path):
-        print("This file already exists in this directory.")
-    else:
-        with open(file_path, 'w'):
-            pass
-
-install_storage_file()
-        
-
-
+    Returns:
+        bool: Will return True if path exists, otherwise False. 
+    """
+    return path.exists(directory)
 
