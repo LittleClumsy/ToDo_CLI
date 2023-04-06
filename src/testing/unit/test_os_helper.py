@@ -30,3 +30,6 @@ def test_create_directory():
     assert path.exists(folder_path)
     create_directory(folder_path)
     removedirs(folder_path)
+
+
+

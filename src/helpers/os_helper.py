@@ -3,6 +3,8 @@ This module will contain all logic pertaining to the operating system.
 """
 
 from os import path, makedirs
+from shutil import copy
+
 
 def get_home_directory() -> str:
     """
@@ -39,3 +41,32 @@ def create_directory(folder_path: str) -> None:
     """
     if not path.exists(folder_path):
         makedirs(folder_path)
+
+
+def install_storage_file():
+    """
+    Creates the Storage files in the directory that the user specifies.
+
+    """
+    directory_path = input("Enter the directory path where you want to install the file: ")
+
+
+    file_to_install = "example_file.txt"  
+    file_path = path.join(directory_path, file_to_install)
+
+    print(directory_path)
+    print(file_path)
+
+    if not path.isdir(directory_path):
+        print("This path doesn't exist.")
+    elif path.exists(file_path):
+        print("This file already exists in this directory.")
+    else:
+        with open(file_path, 'w'):
+            pass
+
+install_storage_file()
+        
+
+
+
