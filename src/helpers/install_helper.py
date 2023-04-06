@@ -2,6 +2,7 @@
 This module will contain all the logic to pertaining to the installation of files needed for the program
 """
 from helpers.os_helper import join_paths, path_exists
+from helpers.json_helper import write_json_file
 
 def install_storage_file():
     """
@@ -17,5 +18,4 @@ def install_storage_file():
     elif path_exists(file_path):
         print("This file already exists in this directory.")
     else:
-        with open(file_path, 'w'):
-            pass
+        write_json_file(file_path, [])

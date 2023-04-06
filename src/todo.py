@@ -3,7 +3,7 @@ This module/file is the entry point for the todo application.
 """
 
 from config.config_controller import install_config_file
-from helpers.os_helper import install_storage_file
+from helpers.install_helper import install_storage_file
 
 def main():
     """
