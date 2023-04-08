@@ -1,5 +1,6 @@
 """
-This module will contain all the logic to pertaining to the installation of files needed for the program
+This module will contain all the logic to pertaining to the installation of files needed
+for the program
 """
 from helpers.os_helper import join_paths, path_exists
 from helpers.json_helper import write_json_file

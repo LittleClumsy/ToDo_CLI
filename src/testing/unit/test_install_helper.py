@@ -23,7 +23,7 @@ class TestInstallHelper(TestCase):
         install_storage_file()
         assert path.exists("src/testing/unit/tasks.json") is True
 
-        with open("src/testing/unit/tasks.json", "r") as file:
+        with open("src/testing/unit/tasks.json", "r", encoding="UTF-8") as file:
             assert file.read() == "[]"
 
         remove("src/testing/unit/tasks.json")
@@ -44,7 +44,7 @@ class TestInstallHelper(TestCase):
         """
         Tests that the install storage file function displays the correct error message.
         """
-        with open("src/testing/unit/tasks.json", "w") as file:
+        with open("src/testing/unit/tasks.json", "w", encoding="UTF-8") as file:
             file.write("// This is a test file.")
 
         with patch("sys.stdout", new=StringIO()) as fake_stdout:
