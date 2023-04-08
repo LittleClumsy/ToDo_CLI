@@ -4,6 +4,7 @@ This module will contain all logic pertaining to the operating system.
 
 from os import path, makedirs
 
+
 def get_home_directory() -> str:
     """
     Returns the home directory of the current user.
@@ -16,6 +17,7 @@ def get_home_directory() -> str:
         '/home/username'
     """
     return path.expanduser("~")
+
 
 def get_config_directory() -> str:
     """
@@ -30,6 +32,7 @@ def get_config_directory() -> str:
     """
     return path.join(get_home_directory(), ".todo")
 
+
 def create_directory(folder_path: str) -> None:
     """
     Creates the directory at the given path.
@@ -39,3 +42,32 @@ def create_directory(folder_path: str) -> None:
     """
     if not path.exists(folder_path):
         makedirs(folder_path)
+
+
+def join_paths(directory_one: str, directory_two: str) -> str:
+    """
+    Joins two file paths into one if possible. 
+
+    Args:
+        directory_one (str): The first path given. 
+        directory_two (str): The second path given.
+
+    Returns: 
+        str: Two paths joined together.
+    """
+
+    return path.join(directory_one, directory_two)
+
+
+def path_exists(directory: str) -> bool:
+    """
+    This will be used to test if the given path already exists.
+
+    Args: 
+        directory (str): Path to check if it exists.
+
+    Returns:
+        bool: Will return True if path exists, otherwise False. 
+    """
+    return path.exists(directory)
+
