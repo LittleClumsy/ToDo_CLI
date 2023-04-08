@@ -5,8 +5,6 @@ clean:
 	rm -rf htmlcov
 
 coverage: test
-	@clear
-	@pipenv run coverage report -m
 	@pipenv run coverage html 
 	@pipenv run coverage xml
 
