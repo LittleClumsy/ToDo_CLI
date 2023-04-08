@@ -15,11 +15,9 @@ class TestInstallHelper(TestCase):
     This class will test the logic pertaining to the installation of files needed for the program.
     """
 
-
-    def __init__(self, methodName: str = ...) -> None:
+    def __init__(self, method_name: str = ...) -> None:
         self.valid_task_path = "src/testing/unit/tasks.json"
-        super().__init__(methodName)
-
+        super().__init__(method_name)
 
     @patch("sys.stdin", StringIO("src/testing/unit/\n"))
     def test_install_storage_file(self):
