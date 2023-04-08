@@ -27,7 +27,9 @@ jobs:
       - name: Testing
         run: |
           pipenv run pytest -q src/testing/unit/
+      - name: Lint
+        run: |
+          pipenv run pylint $(git ls-files '*.py')
       - name: Security Check
         run: |
           pipenv check
-

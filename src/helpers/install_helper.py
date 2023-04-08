@@ -1,14 +1,17 @@
 """
-This module will contain all the logic to pertaining to the installation of files needed for the program
+This module will contain all the logic to pertaining to the installation of files needed
+for the program
 """
 from helpers.os_helper import join_paths, path_exists
 from helpers.json_helper import write_json_file
+
 
 def install_storage_file():
     """
     Creates the Storage files in the directory that the user specifies.
     """
-    directory_path = input("Enter the directory path where you want to install the file: ")
+    directory_path = input(
+        "Enter the directory path where you want to install the file: ")
 
     file_to_install = "tasks.json"
     file_path = join_paths(directory_path, file_to_install)
