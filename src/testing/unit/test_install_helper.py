@@ -14,6 +14,12 @@ class TestInstallHelper(TestCase):
     """
     This class will test the logic pertaining to the installation of files needed for the program.
     """
+    
+    
+    def __init__(self, methodName: str = ...) -> None:
+        self.VALID_TASK_PATH = "src/testing/unit/tasks.json"
+        super().__init__(methodName)
+        
 
     @patch("sys.stdin", StringIO("src/testing/unit/\n"))
     def test_install_storage_file(self):
@@ -21,12 +27,12 @@ class TestInstallHelper(TestCase):
         Tests that the install storage file function works as expected.
         """
         install_storage_file()
-        assert path.exists("src/testing/unit/tasks.json") is True
+        assert path.exists(self.VALID_TASK_PATH) is True
 
-        with open("src/testing/unit/tasks.json", "r", encoding="UTF-8") as file:
+        with open(self.VALID_TASK_PATH, "r", encoding="UTF-8") as file:
             assert file.read() == "[]"
 
-        remove("src/testing/unit/tasks.json")
+        remove(self.VALID_TASK_PATH)
 
     @patch("sys.stdin", StringIO("src/unit/\n"))
     def test_install_storage_file_invalid_path(self):
@@ -44,7 +50,7 @@ class TestInstallHelper(TestCase):
         """
         Tests that the install storage file function displays the correct error message.
         """
-        with open("src/testing/unit/tasks.json", "w", encoding="UTF-8") as file:
+        with open(self.VALID_TASK_PATH, "w", encoding="UTF-8") as file:
             file.write("// This is a test file.")
 
         with patch("sys.stdout", new=StringIO()) as fake_stdout:
@@ -52,6 +58,6 @@ class TestInstallHelper(TestCase):
             assert fake_stdout.getvalue() == "Enter the directory path where you" + \
                 " want to install the file: This file already exists in this directory.\n"
 
-        assert path.exists("src/testing/unit/tasks.json") is True
+        assert path.exists(self.VALID_TASK_PATH) is True
 
-        remove("src/testing/unit/tasks.json")
+        remove(self.VALID_TASK_PATH)
