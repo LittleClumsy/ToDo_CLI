@@ -31,23 +31,3 @@ jobs:
         run: |
           pipenv check
 
-  All-Windows-Checks:
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.10"
-      - name: Setup
-        run: |
-          pip install --upgrade pip
-          pip install pipenv
-          pipenv install
-      - name: Testing
-        run: |
-          pipenv run pytest -q src/testing/unit/
-      - name: Security Check
-        run: |
-          pipenv check
