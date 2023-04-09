@@ -2,7 +2,7 @@
 This module contains all logic pertaining to reading and writing json files.
 """
 
-from json import dump, load
+from json import dump, load, JSONDecodeError
 
 
 def write_json_file(file_path: str, content: dict | list):
@@ -16,6 +16,7 @@ def write_json_file(file_path: str, content: dict | list):
     with open(file_path, "w", encoding="UTF-8") as file:
         dump(content, file, indent=4)
 
+
 def read_json_file(file_path: str) -> dict | list:
     """
     This will read the content from the json file at the specified path.
@@ -25,7 +26,13 @@ def read_json_file(file_path: str) -> dict | list:
 
     Returns:
         dict | list: Returns content of json file.
-    """
-    with open(file_path, "r", encoding="UTF-8") as file:
-        return load(file)
 
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        ValueError: If the file is not a valid json file.
+    """
+    try:
+        with open(file_path, "r", encoding="UTF-8") as file:
+            return load(file)
+    except JSONDecodeError:
+        raise ValueError(f"File at {file_path} is not a valid json file.")
