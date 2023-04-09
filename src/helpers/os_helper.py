@@ -70,3 +70,6 @@ def path_exists(directory: str) -> bool:
         bool: Will return True if path exists, otherwise False. 
     """
     return path.exists(directory)
+
+
+
