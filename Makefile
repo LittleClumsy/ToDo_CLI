@@ -8,11 +8,12 @@ coverage: test
 	@pipenv run coverage html 
 	@pipenv run coverage xml
 
+
 unit-test:
 	@pipenv run pytest -v src/testing/unit/ --cov
 
 test:
-	@pipenv run pytest -v src/testing/ --cov
+	@pipenv run pytest -v src/testing/ --cov=src/
 
 update:
 	@pipenv update

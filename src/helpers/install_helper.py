@@ -4,6 +4,7 @@ for the program
 """
 from helpers.os_helper import join_paths, path_exists
 from helpers.json_helper import write_json_file
+from config.config_controller import read_config_file, write_config_file
 
 
 def install_storage_file():
@@ -11,7 +12,8 @@ def install_storage_file():
     Creates the Storage files in the directory that the user specifies.
     """
     directory_path = input(
-        "Enter the directory path where you want to install the file: ")
+        "Enter the directory path where you want to install the file: ") 
+
 
     file_to_install = "tasks.json"
     file_path = join_paths(directory_path, file_to_install)
@@ -22,3 +24,9 @@ def install_storage_file():
         print("This file already exists in this directory.")
     else:
         write_json_file(file_path, [])
+        configs = read_config_file()
+        configs["data_storage"] = directory_path
+        write_config_file(configs)
+
+
+
