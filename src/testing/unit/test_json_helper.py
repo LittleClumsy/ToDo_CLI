@@ -11,6 +11,7 @@ from pytest import raises
 from helpers.json_helper import read_json_file
 from helpers.json_helper import write_json_file
 
+file_path = "src/testing/test.json"
 
 def test_write_json_file():
     """
@@ -18,7 +19,6 @@ def test_write_json_file():
     """
     expected = '{\n    "test": "Hi",\n    "age": 30\n}'
 
-    file_path = "test.json"
     content = {"test": "Hi", "age": 30}
     write_json_file(file_path, content)
 
@@ -35,7 +35,6 @@ def test_read_json_file():
     """
     Tests the read_json_file function.
     """
-    file_path = "src/testing/test.json"
     mock_content = '{\n    "test": "Hi",\n    "age": 30\n}'
     expected = {'test': 'Hi', 'age': 30}
 
@@ -54,7 +53,6 @@ def test_read_json_when_file_does_not_exist():
     """
     Tests the read_json_file function when the file does not exist.
     """
-    file_path = "src/testing/test.json"
     with raises(FileNotFoundError):
         read_json_file(file_path)
 
@@ -63,7 +61,6 @@ def test_read_json_when_invalid_content():
     """
     Tests the read_json_file function when the file does not contain valid json.
     """
-    file_path = "src/testing/test.json"
     mock_content = 'asdfghhjkl'
 
     with open(file_path, "w", encoding="UTF-8") as file:

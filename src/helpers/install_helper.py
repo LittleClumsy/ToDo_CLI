@@ -24,9 +24,9 @@ def install_storage_file():
         print("This file already exists in this directory.")
     else:
         write_json_file(file_path, [])
-        configs = read_config_file()
-        configs["data_storage"] = directory_path
-        write_config_file(configs)
+        config = read_config_file()
+        config["data_storage"] = directory_path
+        write_config_file(config)
 
 
 
