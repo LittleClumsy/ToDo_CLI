@@ -6,7 +6,7 @@ from io import StringIO
 from os import path, remove
 from unittest import TestCase
 from unittest.mock import patch
-from config.config_controller import install_config_file 
+from config.config_controller import install_config_file
 
 from helpers.install_helper import install_storage_file
 from helpers.os_helper import get_config_directory

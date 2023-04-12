@@ -12,8 +12,7 @@ def install_storage_file():
     Creates the Storage files in the directory that the user specifies.
     """
     directory_path = input(
-        "Enter the directory path where you want to install the file: ") 
-
+        "Enter the directory path where you want to install the file: ")
 
     file_to_install = "tasks.json"
     file_path = join_paths(directory_path, file_to_install)
@@ -27,6 +26,3 @@ def install_storage_file():
         config = read_config_file()
         config["data_storage"] = directory_path
         write_config_file(config)
-
-
-
