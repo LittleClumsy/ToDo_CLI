@@ -4,7 +4,7 @@ This module contains unit tests for the cli controller.
 # Global imports
 from io import StringIO
 from json import dump, load
-from os import remove
+from os import remove, makedirs, path, rmdir
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -35,8 +35,14 @@ class TestCliController(TestCase):
             "name": "Laundry",
             "date": "2023"
         }]
+
         config_directory = get_config_directory()
+
+        if not path.exists(config_directory):
+            makedirs(config_directory)
+
         tasks_directory = "src/testing/unit"
+
         with open(f"{config_directory}/config.json", "w", encoding="UTF-8") as file:
             config = {
                 "data_storage": tasks_directory
@@ -55,3 +61,4 @@ class TestCliController(TestCase):
 
         remove(f"{config_directory}/config.json")
         remove(f"{tasks_directory}/tasks.json")
+        rmdir(config_directory)
