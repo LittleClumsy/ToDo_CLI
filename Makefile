@@ -10,6 +10,8 @@ clean:
 	rm -rf .coverage
 	rm -rf coverage.xml
 	rm -rf htmlcov
+	rm -rf src/testing/tasks.json
+	rm -rf src/testing/unit/tasks.json
 
 coverage:
 	@pipenv run pytest -q src/testing/

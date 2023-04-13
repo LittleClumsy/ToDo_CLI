@@ -36,30 +36,41 @@ class TestInstallHelper(TestCase):
         remove(self.valid_task_path)
         remove(f"{get_config_directory()}/config.json")
 
-    @patch("sys.stdin", StringIO("src/unit/\n"))
+    @patch("sys.stdin", StringIO("src/unit/\nsrc/testing/unit/\n"))
     def test_install_storage_file_invalid_path(self):
         """
         Tests that the install storage file function displays the correct error message.
         """
+        install_config_file()
+
         with patch("sys.stdout", new=StringIO()) as fake_stdout:
             install_storage_file()
             assert fake_stdout.getvalue() == "Enter the directory path where you" + \
-                " want to install the file: This path doesn't exist.\n"
+                " want to install the file: This path doesn't exist.\n" + \
+                "Enter the directory path where you want to install the file: "
         assert path.exists("src/unit/tasks.json") is False
 
-    @patch("sys.stdin", StringIO("src/testing/unit/\n"))
+        remove(self.valid_task_path)
+        remove(f"{get_config_directory()}/config.json")
+
+    @patch("sys.stdin", StringIO("src/testing/unit/\nsrc/testing/\n"))
     def test_install_storage_file_already_existing_file(self):
         """
         Tests that the install storage file function displays the correct error message.
         """
+        install_config_file()
+
         with open(self.valid_task_path, "w", encoding="UTF-8") as file:
             file.write("// This is a test file.")
 
         with patch("sys.stdout", new=StringIO()) as fake_stdout:
             install_storage_file()
             assert fake_stdout.getvalue() == "Enter the directory path where you" + \
-                " want to install the file: This file already exists in this directory.\n"
+                " want to install the file: This file already exists in this directory.\n" + \
+                "Enter the directory path where you want to install the file: "
 
         assert path.exists(self.valid_task_path) is True
 
         remove(self.valid_task_path)
+        remove("src/testing/tasks.json")
+        remove(f"{get_config_directory()}/config.json")

@@ -11,18 +11,23 @@ def install_storage_file():
     """
     Creates the Storage files in the directory that the user specifies.
     """
-    directory_path = input(
-        "Enter the directory path where you want to install the file: ")
 
-    file_to_install = "tasks.json"
-    file_path = join_paths(directory_path, file_to_install)
+    valid_path_entered = False
+    while not valid_path_entered:
+        directory_path = input(
+            "Enter the directory path where you want to install the file: ")
 
-    if not path_exists(directory_path):
-        print("This path doesn't exist.")
-    elif path_exists(file_path):
-        print("This file already exists in this directory.")
-    else:
-        write_json_file(file_path, [])
-        config = read_config_file()
-        config["data_storage"] = directory_path
-        write_config_file(config)
+        file_to_install = "tasks.json"
+        file_path = join_paths(directory_path, file_to_install)
+
+        if not path_exists(directory_path):
+            print("This path doesn't exist.")
+        elif path_exists(file_path):
+            print("This file already exists in this directory.")
+        else:
+            valid_path_entered = True
+
+    write_json_file(file_path, [])
+    config = read_config_file()
+    config["data_storage"] = directory_path
+    write_config_file(config)
