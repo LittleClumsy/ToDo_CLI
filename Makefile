@@ -12,6 +12,9 @@ coverage:
 	@open http://0.0.0.0:8000/
 	@cd htmlcov && python -m http.server 8000
 
+lint:
+	@pipenv run pylint src/
+
 unit-test:
 	@pipenv run pytest -v src/testing/unit/ --cov=src/
 
