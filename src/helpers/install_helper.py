@@ -4,6 +4,7 @@ for the program
 """
 from helpers.os_helper import join_paths, path_exists
 from helpers.json_helper import write_json_file
+from config.config_controller import read_config_file, write_config_file
 
 
 def install_storage_file():
@@ -22,3 +23,6 @@ def install_storage_file():
         print("This file already exists in this directory.")
     else:
         write_json_file(file_path, [])
+        config = read_config_file()
+        config["data_storage"] = directory_path
+        write_config_file(config)

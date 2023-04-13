@@ -6,8 +6,10 @@ from io import StringIO
 from os import path, remove
 from unittest import TestCase
 from unittest.mock import patch
+from config.config_controller import install_config_file
 
 from helpers.install_helper import install_storage_file
+from helpers.os_helper import get_config_directory
 
 
 class TestInstallHelper(TestCase):
@@ -24,6 +26,7 @@ class TestInstallHelper(TestCase):
         """
         Tests that the install storage file function works as expected.
         """
+        install_config_file()
         install_storage_file()
         assert path.exists(self.valid_task_path) is True
 
@@ -31,6 +34,7 @@ class TestInstallHelper(TestCase):
             assert file.read() == "[]"
 
         remove(self.valid_task_path)
+        remove(f"{get_config_directory()}/config.json")
 
     @patch("sys.stdin", StringIO("src/unit/\n"))
     def test_install_storage_file_invalid_path(self):
