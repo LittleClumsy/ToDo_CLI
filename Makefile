@@ -17,4 +17,4 @@ test:
 
 update:
 	@pipenv update
-	@pipenv requirements > requirements.txt
+	@pipenv requirements --dev > requirements.txt
