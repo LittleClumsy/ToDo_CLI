@@ -18,6 +18,9 @@ def main(args: list[str]) -> int:
 
     Args:
         args (list[str]): The CLI arguments. 
+
+    Returns:
+        int: The exit code of the application.
     """
     # Default exit code (0 = no errors)
     exit_code = 0
