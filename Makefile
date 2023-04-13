@@ -1,3 +1,9 @@
+dev-setup:
+	pipenv install --dev
+
+setup:
+	pipenv install
+
 clean:
 	pipenv clean
 	rm -rf .pytest_cache
@@ -22,5 +28,10 @@ test:
 	@pipenv run pytest -q src/testing/ --cov=src/ --cov-report term-missing
 
 update:
+	@pipenv clean
 	@pipenv update
 	@pipenv requirements --dev > requirements.txt
+
+pipeline:
+	@make test
+	@make lint

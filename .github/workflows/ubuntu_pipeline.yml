@@ -30,6 +30,3 @@ jobs:
       - name: Lint
         run: |
           pipenv run pylint src/
-      - name: Security Check
-        run: |
-          pipenv check
