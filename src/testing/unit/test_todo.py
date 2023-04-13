@@ -1,10 +1,8 @@
 """
 This module will test the todo.py module
 """
-from os import remove
 
 from config.config_controller import install_config_file
-from helpers.os_helper import get_config_directory
 from todo import main
 
 
