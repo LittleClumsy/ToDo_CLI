@@ -1,5 +1,0 @@
-[report]
-
-omit =
-    src/testing/*.py
-    src/testing/unit/*.py
