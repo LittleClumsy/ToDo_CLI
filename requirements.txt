@@ -1,5 +1,6 @@
 -i https://pypi.org/simple
 astroid==2.15.2 ; python_full_version >= '3.7.2'
+autopep8==2.0.2
 coverage==7.2.3
 dill==0.3.6 ; python_version < '3.11'
 exceptiongroup==1.1.1 ; python_version < '3.11'
@@ -7,9 +8,10 @@ iniconfig==2.0.0 ; python_version >= '3.7'
 isort==5.12.0 ; python_full_version >= '3.8.0'
 lazy-object-proxy==1.9.0 ; python_version >= '3.7'
 mccabe==0.7.0 ; python_version >= '3.6'
-packaging==23.0 ; python_version >= '3.7'
+packaging==23.1 ; python_version >= '3.7'
 platformdirs==3.2.0 ; python_version >= '3.7'
 pluggy==1.0.0 ; python_version >= '3.6'
+pycodestyle==2.10.0 ; python_version >= '3.6'
 pylint==2.17.2
 pytest==7.3.0
 pytest-cov==4.0.0
