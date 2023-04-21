@@ -8,10 +8,10 @@ from os import path, remove
 from pytest import raises
 
 # Local imports
-from helpers.json_helper import read_json_file
-from helpers.json_helper import write_json_file
+from todo_cli.helpers.json_helper import read_json_file
+from todo_cli.helpers.json_helper import write_json_file
 
-FILE_PATH = "src/testing/test.json"
+FILE_PATH = "tests/test.json"
 
 
 def test_write_json_file():

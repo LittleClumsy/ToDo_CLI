@@ -4,8 +4,8 @@ This module contains unit tests for the config module.
 from json import load
 from os import remove, removedirs
 
-from config.config_controller import install_config_file
-from helpers.os_helper import get_config_directory
+from todo_cli.config.config_controller import install_config_file
+from todo_cli.helpers.os_helper import get_config_directory
 
 
 def test_install_config_file():

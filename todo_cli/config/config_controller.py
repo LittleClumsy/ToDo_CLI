@@ -2,8 +2,8 @@
 This module will contain all logic pertaining to the configuration of the application.
 """
 
-from helpers.json_helper import write_json_file, read_json_file
-from helpers.os_helper import create_directory, get_config_directory
+from todo_cli.helpers.json_helper import write_json_file, read_json_file
+from todo_cli.helpers.os_helper import create_directory, get_config_directory
 
 
 def install_config_file():

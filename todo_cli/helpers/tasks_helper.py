@@ -2,8 +2,8 @@
 This module contains all logic pertaining to the Tasks.json file.
 """
 
-from config.config_controller import read_config_file
-from helpers.json_helper import read_json_file, write_json_file
+from todo_cli.config.config_controller import read_config_file
+from todo_cli.helpers.json_helper import read_json_file, write_json_file
 
 
 def read_tasks_file() -> str:
