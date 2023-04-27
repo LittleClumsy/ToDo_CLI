@@ -2,8 +2,9 @@
 This module contains all logic pertaining to the CLI commands
 """
 
-from helpers.tasks_helper import read_tasks_file, create_task
-from helpers.tasks_helper import write_tasks_file
+from helpers.tasks_helper import read_tasks_file, create_task, write_tasks_file, view_tasks
+
+
 
 
 def handle_cli_args(cli_args: list[str]) -> None:
@@ -17,6 +18,8 @@ def handle_cli_args(cli_args: list[str]) -> None:
         print("This should be the help command.")
     elif cli_args[0] == "create":
         adding_content()
+    elif cli_args[0] == "view":
+        view_tasks()
 
 
 def adding_content():
@@ -27,3 +30,5 @@ def adding_content():
     new_task = create_task()
     tasks_data.append(new_task)
     write_tasks_file(tasks_data)
+
+
