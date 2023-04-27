@@ -9,7 +9,7 @@ def create_test_config():
     This function will create a test config file.
     """
     install_config_file()
-    test_config = {"data_storage" : "src/testing/unit"}
+    test_config = {"data_storage" : "tests/unit"}
     write_config_file(test_config)
 
 def create_test_tasks():
@@ -32,5 +32,5 @@ def remove_test_files():
     """
     This function will remove the test files.
     """
-    remove("src/testing/unit/tasks.json")
+    remove("tests/unit/tasks.json")
     write_config_file({})
