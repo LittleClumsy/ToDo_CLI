@@ -11,6 +11,7 @@ from unittest.mock import patch
 # File imports
 from todo_cli.cli.cli_controller import handle_cli_args
 from todo_cli.helpers.os_helper import get_config_directory
+from tests.unit.test_helpers import create_test_config, create_test_tasks,remove_test_files
 
 
 class TestCliController(TestCase):
@@ -62,3 +63,15 @@ class TestCliController(TestCase):
         remove(f"{config_directory}/config.json")
         remove(f"{tasks_directory}/tasks.json")
         rmdir(config_directory)
+
+    def test_view_tasks(self):
+        """
+        This will test view task.
+        """
+        expected = "Laundry | 2023\nwash | 2023\n"
+        create_test_config()
+        create_test_tasks()
+        with patch("sys.stdout", new=StringIO()) as fake_stdout:
+            handle_cli_args(["view"])
+            assert fake_stdout.getvalue() == expected
+        remove_test_files()
