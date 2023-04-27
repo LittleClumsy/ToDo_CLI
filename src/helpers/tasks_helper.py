@@ -23,8 +23,8 @@ def read_tasks_file() -> str:
 
 def write_tasks_file(content: list[dict]) -> None:
     """
-    This will read the tasks.json file.
-
+    This will write content to task file and if the task file doesnt exist
+    it will create tasks.json.
     Returns:
         str: The directory to tasks.json file.
     """
@@ -37,8 +37,7 @@ def write_tasks_file(content: list[dict]) -> None:
 
 def create_task() -> dict:
     """
-    This will add a new task to tasks file.
-
+    This will create a new task dictionary and return it.
     Returns:
         dict: Data for tasks.json file.
     """
@@ -52,3 +51,12 @@ def create_task() -> dict:
     }
 
     return new_task
+
+
+def view_tasks():
+    """
+    This will allow user to view their existing tasks.
+    """
+    tasks_data = read_tasks_file()
+    for item in tasks_data:
+        print(item["name"],'|',item["date"])
