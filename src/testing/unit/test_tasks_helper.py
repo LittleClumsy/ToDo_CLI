@@ -36,5 +36,5 @@ class TestTasksHelper(TestCase):
         create_test_tasks()
         with patch("sys.stdout", new=StringIO()) as fake_stdout:
             view_tasks()
-            assert fake_stdout.getvalue() == expected 
+            assert fake_stdout.getvalue() == expected
         remove_test_files()

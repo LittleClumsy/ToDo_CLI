@@ -73,5 +73,5 @@ class TestCliController(TestCase):
         create_test_tasks()
         with patch("sys.stdout", new=StringIO()) as fake_stdout:
             handle_cli_args(["view"])
-            assert fake_stdout.getvalue() == expected 
+            assert fake_stdout.getvalue() == expected
         remove_test_files()
