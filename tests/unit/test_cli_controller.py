@@ -4,14 +4,14 @@ This module contains unit tests for the cli controller.
 # Global imports
 from io import StringIO
 from json import dump, load
-from os import remove, makedirs, path, rmdir
+from os import makedirs, path
 from unittest import TestCase
 from unittest.mock import patch
 
 # File imports
 from todo_cli.cli.cli_controller import handle_cli_args
 from todo_cli.helpers.os_helper import get_config_directory
-from tests.unit.test_helpers import create_test_config, create_test_tasks,remove_test_files
+from tests.unit.test_helpers import create_test_config, create_test_tasks, remove_test_files
 
 
 class TestCliController(TestCase):
@@ -59,10 +59,8 @@ class TestCliController(TestCase):
         with open(f"{tasks_directory}/tasks.json", "r", encoding="UTF-8") as file:
             tasks = load(file)
             assert expected == tasks
+        remove_test_files()
 
-        remove(f"{config_directory}/config.json")
-        remove(f"{tasks_directory}/tasks.json")
-        rmdir(config_directory)
 
     def test_view_tasks(self):
         """

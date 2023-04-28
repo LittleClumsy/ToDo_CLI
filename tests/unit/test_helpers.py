@@ -1,8 +1,16 @@
 """This module will contain helper functions for tests."""
 
 from os import remove
-from todo_cli.config.config_controller import write_config_file, install_config_file
+from shutil import rmtree
+from todo_cli.config.config_controller import write_config_file, install_config_file, get_config_directory
 from todo_cli.helpers.tasks_helper import write_tasks_file
+
+def create_test_files():
+    """
+    This function will create test data.
+    """
+    create_test_config()
+    create_test_tasks()
 
 def create_test_config():
     """
@@ -33,4 +41,4 @@ def remove_test_files():
     This function will remove the test files.
     """
     remove("tests/unit/tasks.json")
-    write_config_file({})
+    rmtree(f"{get_config_directory()}")
