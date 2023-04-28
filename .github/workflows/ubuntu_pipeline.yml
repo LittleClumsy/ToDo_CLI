@@ -26,7 +26,7 @@ jobs:
           pipenv install --dev
       - name: Testing
         run: |
-          pipenv run pytest -q src/testing/unit/
+          pipenv run pytest -q tests/
       - name: Lint
         run: |
-          pipenv run pylint src/
+          pipenv run pylint todo_cli/

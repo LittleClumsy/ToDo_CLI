@@ -1,8 +1,7 @@
 """
 This module contains all logic pertaining to the CLI commands
 """
-
-from helpers.tasks_helper import read_tasks_file, create_task, write_tasks_file, view_tasks
+from todo_cli.helpers.tasks_helper import read_tasks_file, create_task, write_tasks_file, view_tasks
 
 def handle_cli_args(cli_args: list[str]) -> None:
     """

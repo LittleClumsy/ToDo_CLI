@@ -3,7 +3,7 @@ This module contains unit tests for the os_helper module.
 """
 from os import path, removedirs
 
-from helpers.os_helper import (
+from todo_cli.helpers.os_helper import (
     get_home_directory,
     get_config_directory,
     create_directory,
@@ -46,7 +46,7 @@ def test_join_paths():
     Tests the join_paths function
     """
     dir_one = "src"
-    dir_two = "testing"
+    dir_two = "tests"
     expected = f"{dir_one}/{dir_two}"
     actual = join_paths(dir_one, dir_two)
     assert expected == actual
@@ -56,7 +56,7 @@ def test_path_exists():
     """
     Tests path_exists function
     """
-    directory = "src/testing/unit/test_os_helper.py"
+    directory = "tests/unit/test_os_helper.py"
 
     actual = path_exists(directory)
     assert actual is True

@@ -5,10 +5,8 @@ This module will test tasks_helper.
 from io import StringIO
 from unittest import TestCase
 from unittest.mock import patch
-from helpers.tasks_helper import create_task, view_tasks
-from testing.unit.test_helpers import create_test_config, create_test_tasks, remove_test_files
-
-
+from todo_cli.helpers.tasks_helper import create_task, view_tasks
+from tests.unit.test_helpers import create_test_config, create_test_tasks, remove_test_files
 
 class TestTasksHelper(TestCase):
     """

@@ -9,9 +9,9 @@ from unittest import TestCase
 from unittest.mock import patch
 
 # File imports
-from cli.cli_controller import handle_cli_args
-from helpers.os_helper import get_config_directory
-from testing.unit.test_helpers import create_test_config, create_test_tasks,remove_test_files
+from todo_cli.cli.cli_controller import handle_cli_args
+from todo_cli.helpers.os_helper import get_config_directory
+from tests.unit.test_helpers import create_test_config, create_test_tasks,remove_test_files
 
 
 class TestCliController(TestCase):
@@ -42,7 +42,7 @@ class TestCliController(TestCase):
         if not path.exists(config_directory):
             makedirs(config_directory)
 
-        tasks_directory = "src/testing/unit"
+        tasks_directory = "tests/unit"
 
         with open(f"{config_directory}/config.json", "w", encoding="UTF-8") as file:
             config = {

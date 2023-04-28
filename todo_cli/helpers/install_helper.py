@@ -2,9 +2,9 @@
 This module will contain all the logic to pertaining to the installation of files needed
 for the program
 """
-from helpers.os_helper import join_paths, path_exists
-from helpers.json_helper import write_json_file
-from config.config_controller import read_config_file, write_config_file
+from todo_cli.helpers.os_helper import join_paths, path_exists
+from todo_cli.helpers.json_helper import write_json_file
+from todo_cli.config.config_controller import read_config_file, write_config_file
 
 
 def install_storage_file():

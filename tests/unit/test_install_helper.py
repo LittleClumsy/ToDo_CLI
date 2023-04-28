@@ -6,10 +6,10 @@ from io import StringIO
 from os import path, remove
 from unittest import TestCase
 from unittest.mock import patch
-from config.config_controller import install_config_file
 
-from helpers.install_helper import install_storage_file
-from helpers.os_helper import get_config_directory
+from todo_cli.config.config_controller import install_config_file
+from todo_cli.helpers.install_helper import install_storage_file
+from todo_cli.helpers.os_helper import get_config_directory
 
 
 class TestInstallHelper(TestCase):
@@ -18,10 +18,10 @@ class TestInstallHelper(TestCase):
     """
 
     def __init__(self, method_name: str = ...) -> None:
-        self.valid_task_path = "src/testing/unit/tasks.json"
+        self.valid_task_path = "tests/unit/tasks.json"
         super().__init__(method_name)
 
-    @patch("sys.stdin", StringIO("src/testing/unit/\n"))
+    @patch("sys.stdin", StringIO("tests/unit/\n"))
     def test_install_storage_file(self):
         """
         Tests that the install storage file function works as expected.
@@ -36,7 +36,7 @@ class TestInstallHelper(TestCase):
         remove(self.valid_task_path)
         remove(f"{get_config_directory()}/config.json")
 
-    @patch("sys.stdin", StringIO("src/unit/\nsrc/testing/unit/\n"))
+    @patch("sys.stdin", StringIO("unit/\ntests/unit/\n"))
     def test_install_storage_file_invalid_path(self):
         """
         Tests that the install storage file function displays the correct error message.
@@ -48,12 +48,12 @@ class TestInstallHelper(TestCase):
             assert fake_stdout.getvalue() == "Enter the directory path where you" + \
                 " want to install the file: This path doesn't exist.\n" + \
                 "Enter the directory path where you want to install the file: "
-        assert path.exists("src/unit/tasks.json") is False
+        assert path.exists("unit/tasks.json") is False
 
         remove(self.valid_task_path)
         remove(f"{get_config_directory()}/config.json")
 
-    @patch("sys.stdin", StringIO("src/testing/unit/\nsrc/testing/\n"))
+    @patch("sys.stdin", StringIO("tests/unit/\ntests/\n"))
     def test_install_storage_file_already_existing_file(self):
         """
         Tests that the install storage file function displays the correct error message.
@@ -72,5 +72,5 @@ class TestInstallHelper(TestCase):
         assert path.exists(self.valid_task_path) is True
 
         remove(self.valid_task_path)
-        remove("src/testing/tasks.json")
+        remove("tests/tasks.json")
         remove(f"{get_config_directory()}/config.json")
