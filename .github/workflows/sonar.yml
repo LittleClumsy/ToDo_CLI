@@ -1,0 +1,34 @@
+name: Build
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Setup
+        run: |
+          pip install --upgrade pip
+          pip install pipenv
+          pipenv install --dev
+      - name: Generate Coverage
+        run: |
+          pipenv run pytest -v tests/ --cov=todo_cli/ --cov-report term-missing
+          pipenv run coverage xml
+          sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace<\/source>/g" /home/runner/work/ToDo_CLI/ToDo_CLI/coverage.xml
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
