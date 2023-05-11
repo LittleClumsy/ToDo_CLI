@@ -4,7 +4,7 @@ Here you will find all developer docs relating to this project. Please look thro
 
 ## misc
 
-* version.txt (misc/version.md)
-* sonar-project.properties (misc/sonar.md)
-* Makefile (misc/make.md)
 * .gitignore (misc/ignore.md)
+* Makefile (misc/make.md)
+* sonar-project.properties (misc/sonar.md)
+* version.txt (misc/version.md)
