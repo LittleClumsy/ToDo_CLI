@@ -26,7 +26,7 @@ jobs:
         run: |
           pipenv run pytest -v tests/ --cov=todo_cli/ --cov-report term-missing
           pipenv run coverage xml
-          sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace<\/source>/g" /home/runner/work/ToDo_CLI/ToDo_CLI/source/coverage.xml
+          sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace<\/source>/g" /home/runner/work/ToDo_CLI/ToDo_CLI/coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
