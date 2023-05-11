@@ -30,3 +30,42 @@ major:
 	@echo "New version: $(newMajor).$(minor).$(patch)"
 	@echo "sonar.projectKey=LittleClumsy_ToDo_CLI\nsonar.organization=littleclumsy\n\n# This is the name and version displayed in the SonarCloud UI.\nsonar.projectName=ToDo_CLI\nsonar.projectVersion=$(major).$(minor).$(newPatch)\n\n# Path is relative to the sonar-project.properties file. Replace "" by "/" on Windows.\nsonar.sources=source/todo_cli/\nsonar.python.coverage.reportPaths=source/coverage.xml\nsonar.python.version=3.10" > $(SONAR_FILE)
 	@echo "Updated SonarCloud version"
+
+setup:
+	pipenv install --dev
+
+ci:
+	pipenv install
+
+clean:
+	pipenv clean
+	rm -rf .pytest_cache
+	rm -rf .coverage
+	rm -rf coverage.xml
+	rm -rf htmlcov
+	rm -rf src/testing/tasks.json
+	rm -rf src/testing/unit/tasks.json
+
+coverage: test
+	@pipenv run coverage html 
+	@pipenv run coverage xml
+	@open http://0.0.0.0:8000/
+	@cd htmlcov && python -m http.server 8000
+
+lint:
+	@pipenv run pylint todo_cli/
+
+unit-test:
+	@pipenv run pytest -v tests/unit/
+
+test:
+	@pipenv run python -m pytest -q tests/ --cov=todo_cli/ --cov-report term-missing
+
+update:
+	@pipenv clean
+	@pipenv update
+	@pipenv requirements --dev > requirements.txt
+
+pipeline:
+	@make test
+	@make lint
