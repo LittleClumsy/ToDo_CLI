@@ -3,16 +3,20 @@ This module contains unit tests for the cli controller.
 """
 # Global imports
 from io import StringIO
-from json import dump, load
-from os import makedirs, path
+from json import load
 from unittest import TestCase
 from unittest.mock import patch
 
 # File imports
+from tests.unit.test_helpers import (
+    create_test_config,
+    create_test_tasks,
+    remove_test_files,
+    create_test_files
+)
+
 from todo_cli.cli.cli_controller import handle_cli_args
 from todo_cli.helpers.os_helper import get_config_directory
-from tests.unit.test_helpers import create_test_config, create_test_tasks, remove_test_files
-
 
 class TestCliController(TestCase):
     """
@@ -27,40 +31,34 @@ class TestCliController(TestCase):
             handle_cli_args([])
             assert fake_stdout.getvalue() == "This should be the help command.\n"
 
-    @patch("sys.stdin", StringIO("Laundry\n2023\n"))
+    @patch("sys.stdin", StringIO("Fishing\n2020\n"))
     def test_create(self):
         """
         This will test the create command.
         """
-        expected = [{
-            "name": "Laundry",
-            "date": "2023"
-        }]
-
+        create_test_files()
         config_directory = get_config_directory()
-
-        if not path.exists(config_directory):
-            makedirs(config_directory)
-
-        tasks_directory = "tests/unit"
-
-        with open(f"{config_directory}/config.json", "w", encoding="UTF-8") as file:
-            config = {
-                "data_storage": tasks_directory
+        expected = [
+            {
+                "name": "Laundry",
+                "date": "2023"
+            },
+            {
+                "name": "wash",
+                "date": "2023"
+            },
+            {
+                "name": "Fishing",
+                "date": "2020"
             }
-            dump(config, file)
-
-        with open(f"{tasks_directory}/tasks.json", "w", encoding="UTF-8") as file:
-            tasks = []
-            dump(tasks, file)
+        ]
 
         handle_cli_args(["create"])
 
-        with open(f"{tasks_directory}/tasks.json", "r", encoding="UTF-8") as file:
+        with open(f"{config_directory}/tasks.json", "r", encoding="UTF-8") as file:
             tasks = load(file)
             assert expected == tasks
         remove_test_files()
-
 
     def test_view_tasks(self):
         """

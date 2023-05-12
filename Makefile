@@ -54,6 +54,8 @@ coverage: test
 
 lint:
 	@pipenv run pylint todo_cli/
+	@echo "Linting Tests..."
+	@pipenv run pylint tests/
 
 unit-test:
 	@pipenv run pytest -v tests/unit/
