@@ -55,7 +55,7 @@ def read_config_file() -> dict | list:
             f"Config file not found at {file_path}.") from file_not_found_error
     except ValueError as value_error:
         raise ValueError(
-            f"Config file at {file_path} is not valid json.") from value_error
+            f"Config file at {file_path} is not valid JSON.") from value_error
     return config
 
 
