@@ -10,6 +10,7 @@ from todo_cli.config.config_controller import install_config_file
 from todo_cli.helpers.install_helper import install_storage_file
 from todo_cli.logs.logger import create_log
 
+
 def main(args: list[str]) -> int:
     """
     The entry point for the todo application.
@@ -20,10 +21,10 @@ def main(args: list[str]) -> int:
     Returns:
         int: The exit code of the application.
     """
-    install_config_file()
+    installed_config_file = install_config_file()
     install_storage_file()
     create_log("Starting application")
-    create_log("Installed required files")
+    create_log(f"Installed config file: {installed_config_file}")
 
     create_log("Setting default exit code to 0")
     exit_code = 0

@@ -28,8 +28,10 @@ class TestInstallHelper(TestCase):
         """
         Tests that the install storage file function works as expected.
         """
-        install_config_file()
+        installed_config_file = install_config_file()
         install_storage_file()
+
+        assert installed_config_file is True
         assert path.exists(self.tasks_directory) is True
 
         with open(self.tasks_directory, "r", encoding="UTF-8") as file:
