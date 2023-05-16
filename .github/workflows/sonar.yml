@@ -1,8 +1,8 @@
-name: Build
+name: Sonar Scan
 on:
   push:
     branches:
-      - release
+      - trunk
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -24,7 +24,7 @@ jobs:
           pipenv install --dev
       - name: Generate Coverage
         run: |
-          pipenv run pytest -v tests/ --cov=todo_cli/ --cov-report term-missing
+          pipenv run pytest -v tests/unit/ --cov=todo_cli/ --cov-report term-missing
           pipenv run coverage xml
           sed -i "s/<source>\/home\/runner\/work\/repo<\/source>/<source>\/github\/workspace<\/source>/g" /home/runner/work/ToDo_CLI/ToDo_CLI/coverage.xml
       - name: SonarCloud Scan
