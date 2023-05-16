@@ -5,6 +5,7 @@ Here you will find all developer docs relating to this project. Please look thro
 ## Source Files
 
 * [todo.py docs](source/main.md)
+* [config_controller.py docs](source/config_controller.md)
 
 ## Other
 * [.gitignore docs](misc/ignore.md)
