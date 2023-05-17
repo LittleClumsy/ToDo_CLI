@@ -4,12 +4,8 @@ This module will contain all logic pertaining to the configuration of the applic
 
 # File Imports
 from todo_cli.helpers.json_helper import write_json_file, read_json_file
-from todo_cli.helpers.os_helper import (
-    create_directory,
-    get_config_directory,
-    path_exists,
-    join_paths
-)
+from todo_cli.helpers.path_helper import path_exists, join_paths
+from todo_cli.helpers.storage_helper import get_storage_directory
 
 
 def get_config_path() -> str:
@@ -23,8 +19,8 @@ def get_config_path() -> str:
         >>> get_config_path()
         "/home/user/.todo/config.json"
     """
-    config_directory = get_config_directory()
-    return join_paths(config_directory, "config.json")
+    storage_directory = get_storage_directory()
+    return join_paths(storage_directory, "config.json")
 
 
 def install_config_file() -> bool:
@@ -36,6 +32,9 @@ def install_config_file() -> bool:
     Returns:
         bool: True if the file was created, False if the file already exists.
 
+    Raises:
+        FileNotFoundError: If the directory does not exist. 
+
     Examples:
         >>> install_config_file()
         True
@@ -43,10 +42,8 @@ def install_config_file() -> bool:
         >>> install_config_file()
         False
     """
-    config_directory = get_config_directory()
     config_path = get_config_path()
     if not path_exists(config_path):
-        create_directory(config_directory)
         write_json_file(config_path, {})
         return True
     return False

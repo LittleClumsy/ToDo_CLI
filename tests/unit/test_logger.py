@@ -1,18 +1,29 @@
 """
-This module will test the logger module.
+This module contains tests for the logger module.
 """
-from todo_cli.config.config_controller import get_config_directory
+
+from os import path
+
+from tests.test_helpers import (
+    setup_test_directory,
+    clean_up
+)
+
 from todo_cli.logs.logger import create_log
-from tests.unit.test_helpers import remove_test_files, create_test_files
+
 
 def test_create_log():
     """
-    This will test the create log function.
+    This function is responsible for testing the create_log function.
     """
-    create_test_files()
-    create_log("HELLO")
-    config_directory = get_config_directory()
-    with open(f"{config_directory}/logs.txt", "r", encoding="UTF-8") as file:
-        lines = file.readlines()
-        assert lines[0].endswith("HELLO\n") is True
-    remove_test_files()
+    home_directory = path.expanduser("~")
+    storage_directory = path.join(home_directory, ".todo")
+    log_directory = path.join(storage_directory, "logs.txt")
+
+    setup_test_directory()
+    create_log("test")
+    with open(log_directory, "r", encoding="UTF-8") as log_file:
+        log_file_contents = log_file.readlines()
+        assert log_file_contents[-1].endswith("test\n") is True
+
+    clean_up()

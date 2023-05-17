@@ -6,6 +6,8 @@ Here you will find all developer docs relating to this project. Please look thro
 
 * [todo.py docs](source/main.md)
 * [config_controller.py docs](source/config_controller.md)
+* [storage_helper.py docs](source/storage_helper.md)
+* [path_helper.py docs](source/path_helper.md)
 
 ## Other
 * [.gitignore docs](misc/ignore.md)

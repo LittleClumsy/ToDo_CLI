@@ -61,7 +61,7 @@ unit-test:
 	@pipenv run pytest -v tests/unit/
 
 test:
-	@pipenv run python -m pytest -q tests/ --cov=todo_cli/ --cov-report term-missing
+	@pipenv run python -m pytest -v tests/ --cov=todo_cli/ --cov-report term-missing
 
 update:
 	@pipenv clean
