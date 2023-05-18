@@ -2,26 +2,23 @@
 ToDo_CLI is still very early in development. Currently it's a simple CLI program to help you keep track of all your tasks.
 
 <p align="center">
-    [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=coverage)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=coverage">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=ncloc">
 </p>
-<br>
 <p align="center">
-    [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=reliability_rating">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=security_rating">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=sqale_rating">
 </p>
-<br>
 <p align="center">
-    [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=bugs)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
-    [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=code_smells">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=sqale_index">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=vulnerabilities">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=bugs">
 </p>
-<br>
 <p align="center">
-    [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=alert_status">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=duplicated_lines_density">
 </p>
 
 ## Installation 
