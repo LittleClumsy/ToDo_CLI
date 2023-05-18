@@ -2,9 +2,20 @@
 
 Config controller is responsible for installing and handling the configuration file.
 
+
+## Get config path
+
+This function will return the path to the config file.
+
+```python
+>>> from todo_cli.config.config_controller import get_config_path
+>>> get_config_path()
+'/home/user/.todo/config.json'
+```
+
 ## Install config file
 
-This function will install the config file if it doesn't exist. It will also create the config directory if it doesn't exist.
+This function will install the config file if it doesn't exist.
 
 Returns `True` if the config file was installed, `False` if it already existed.
 

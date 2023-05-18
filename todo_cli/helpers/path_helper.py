@@ -1,5 +1,5 @@
 """
-This module will contain all logic pertaining to the operating system.
+This module contains functions to help with file paths and directories.
 """
 
 from os import path, makedirs
@@ -19,29 +19,24 @@ def get_home_directory() -> str:
     return path.expanduser("~")
 
 
-def get_config_directory() -> str:
-    """
-    Returns the config directory of the application.
-
-    Returns:
-        str: The config directory of the application.
-
-    Examples:
-        >>> get_config_directory()
-        '/home/username/.todo'
-    """
-    return path.join(get_home_directory(), ".todo")
-
-
-def create_directory(folder_path: str) -> None:
+def create_directory(folder_path: str) -> bool:
     """
     Creates the directory at the given path.
 
     Args:
         folder_path (str): The path to the directory to create.
+
+    Returns:
+        bool: True if the directory was created, otherwise False.
+
+    Examples:
+        >>> create_directory("/home/username/.todo")
+        True
     """
-    if not path.exists(folder_path):
+    if not path_exists(folder_path):
         makedirs(folder_path)
+        return True
+    return False
 
 
 def join_paths(directory_one: str, directory_two: str) -> str:
@@ -54,8 +49,11 @@ def join_paths(directory_one: str, directory_two: str) -> str:
 
     Returns: 
         str: Two paths joined together.
-    """
 
+    Examples:
+        >>> join_paths("/home/username", ".todo")
+        '/home/username/.todo'
+    """
     return path.join(directory_one, directory_two)
 
 
@@ -68,5 +66,9 @@ def path_exists(directory: str) -> bool:
 
     Returns:
         bool: Will return True if path exists, otherwise False. 
+
+    Examples:
+        >>> path_exists("/home/username/.todo")
+        True
     """
     return path.exists(directory)

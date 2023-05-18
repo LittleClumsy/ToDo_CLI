@@ -8,14 +8,27 @@ todo.py uses the `sys` package to retrieve the command line arguments. It will t
 
 We remove the first argument before it gets passed to our main function. This is because the first argument is always the name of the script.
 
-CLI controller is responsible for handling the command line arguments, you can find more information about it [here](cli_controller.md).
+## Main function
 
-Config controller is responsible for installing and handling the configuration file, you can find more information about it [here](config_controller.md).
+The main function is responsible for calling the appropriate function based on the command line arguments. It will also handle the exit codes. This is the entry point of the application.
 
-Install helper is responsible for installing the required files, you can find more information about it [here](install_helper.md).
+## Install app function
 
-Logger is responsible for logging info into a text file, you can find more information about it [here](logger.md).
+The install app function is responsible for installing the required files for the todo application. It will create the required directories and files.
+
+This function can raise the following exceptions:
+* FileNotFoundError - If the directory for installation does not exist, this will only happen if the installation for the directory fails.
+
+## Handle install error function
+
+The handle install error function is responsible for handling the errors that occur during installation. It will print the error message and return the appropriate exit code.
 
 ## More documentation
 
 * [Exit codes](../misc/exit_codes.md)
+* [CLI Controller Docs](cli_controller.md)
+* [Config Controller Docs](config_controller.md)
+* [Storage Helper Docs](storage_helper.md)
+* [Tasks Helper Docs](tasks_helper.md)
+* [Logger Docs](logger.md)
+

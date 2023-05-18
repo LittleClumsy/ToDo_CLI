@@ -4,7 +4,23 @@ This module will contain all logic pertaining to the configuration of the applic
 
 # File Imports
 from todo_cli.helpers.json_helper import write_json_file, read_json_file
-from todo_cli.helpers.os_helper import create_directory, get_config_directory, path_exists
+from todo_cli.helpers.path_helper import path_exists, join_paths
+from todo_cli.helpers.storage_helper import get_storage_directory
+
+
+def get_config_path() -> str:
+    """
+    This function will return the path to the config file.
+
+    Returns:
+        str: The path to the config file.
+
+    Examples:
+        >>> get_config_path()
+        "/home/user/.todo/config.json"
+    """
+    storage_directory = get_storage_directory()
+    return join_paths(storage_directory, "config.json")
 
 
 def install_config_file() -> bool:
@@ -16,6 +32,9 @@ def install_config_file() -> bool:
     Returns:
         bool: True if the file was created, False if the file already exists.
 
+    Raises:
+        FileNotFoundError: If the directory does not exist. 
+
     Examples:
         >>> install_config_file()
         True
@@ -23,10 +42,9 @@ def install_config_file() -> bool:
         >>> install_config_file()
         False
     """
-    config_directory = get_config_directory()
-    if not path_exists(f"{config_directory}/config.json"):
-        create_directory(config_directory)
-        write_json_file(f"{config_directory}/config.json", {})
+    config_path = get_config_path()
+    if not path_exists(config_path):
+        write_json_file(config_path, {})
         return True
     return False
 
@@ -47,8 +65,7 @@ def read_config_file() -> dict | list:
         {"key": "value"}
     """
     try:
-        config_directory = get_config_directory()
-        file_path = f"{config_directory}/config.json"
+        file_path = get_config_path()
         config = read_json_file(file_path)
     except FileNotFoundError as file_not_found_error:
         raise FileNotFoundError(
@@ -72,6 +89,5 @@ def write_config_file(content: dict) -> None:
     Examples:
         >>> write_config_file({"key": "value"})
     """
-    config_directory = get_config_directory()
-    file_path = f"{config_directory}/config.json"
+    file_path = get_config_path()
     write_json_file(file_path, content)
