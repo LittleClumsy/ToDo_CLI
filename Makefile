@@ -76,4 +76,4 @@ pipeline:
 	@make lint
 
 build: 
-	@pyinstaller --onefile todo.py 
+	@pipenv pyinstaller --onefile todo.py 
