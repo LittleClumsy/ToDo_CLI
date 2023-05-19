@@ -1,8 +1,25 @@
 # ToDo_CLI
 ToDo_CLI is still very early in development. Currently it's a simple CLI program to help you keep track of all your tasks.
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=coverage)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI) 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=LittleClumsy_ToDo_CLI)
+<p align="center">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=coverage">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=ncloc">
+</p>
+<p align="center">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=reliability_rating">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=security_rating">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=sqale_rating">
+</p>
+<p align="center">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=code_smells">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=sqale_index">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=vulnerabilities">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=bugs">
+</p>
+<p align="center">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=alert_status">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=LittleClumsy_ToDo_CLI&metric=duplicated_lines_density">
+</p>
 
 ## Installation 
 PLEASE NOTE! ToDo_CLI is currently only working on Ubuntu 22.04.
