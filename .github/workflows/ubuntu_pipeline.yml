@@ -34,5 +34,5 @@ jobs:
           pipenv run pylint tests/
       - name: Build
         run: |
-          pipenv install pyinstaller 
+          pipenv run install pyinstaller 
           pyinstaller --onefile todo.py
