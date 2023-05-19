@@ -35,4 +35,4 @@ jobs:
       - name: Build
         run: |
           pipenv install pyinstaller 
-          pyinstaller --onefile todo.py
+          pipenv pyinstaller --onefile todo.py
