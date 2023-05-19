@@ -12,7 +12,22 @@ def write_json_file(file_path: str, content: dict | list):
     Args:
         file_path (str): The path to the json file.
         content (dict | list): The content to write to the json file.
+
+    Raises:
+        TypeError: If the content is not of type dict or list.
+
+    Examples:
+        >>> write_json_file("test.json", {"test": "test"})
+        None
+        >>> write_json_file("test.json", ["test", "test"])
+        None
+        >>> write_json_file("test.json", "test")
+        TypeError: Content must be of type dict or list, not <class 'str'>.
     """
+    if not isinstance(content, (dict, list)):
+        raise TypeError(
+            f"Content must be of type dict or list, not {type(content)}.")
+
     with open(file_path, "w", encoding="UTF-8") as file:
         dump(content, file, indent=4)
 
@@ -29,11 +44,27 @@ def read_json_file(file_path: str) -> dict | list:
 
     Raises:
         FileNotFoundError: If the file does not exist.
-        ValueError: If the file is not a valid json file.
+        TypeError: If the file is not a valid json file.
+
+    Examples:
+        >>> read_json_file("test.json")
+        {"test": "test"}
+        >>> read_json_file("test.json")
+        ["test", "test"]
+        >>> read_json_file("test.json")
+        TypeError: File at test.json is not a valid json file.
     """
+    content = None
+
     try:
         with open(file_path, "r", encoding="UTF-8") as file:
-            return load(file)
+            content = load(file)
     except JSONDecodeError as decode_error:
-        raise ValueError(
+        raise TypeError(
             f"File at {file_path} is not a valid json file.") from decode_error
+
+    if (content is None or not isinstance(content, (dict, list))):
+        raise TypeError(
+            f"File at {file_path} is not a valid json file.")
+
+    return content

@@ -32,8 +32,17 @@ def test_read_invalid_json_file():
     This function is responsible for testing the read_json_file function when
     the file is not a valid json file.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         read_json_file("tests/data/invalid.json")
+
+
+def test_read_string_json_file():
+    """
+    This function is responsible for testing the read_json_file function when
+    the file is a string.
+    """
+    with pytest.raises(TypeError):
+        read_json_file("tests/data/string_in.json")
 
 
 def test_write_json_file():
@@ -48,3 +57,12 @@ def test_write_json_file():
     write_json_file(json_path, {})
     result = read_json_file(json_path)
     assert result == {}
+
+
+def test_write_json_file_with_invalid_content_type():
+    """
+    This function is responsible for testing the write_json_file function when
+    the content is not of type dict or list.
+    """
+    with pytest.raises(TypeError):
+        write_json_file("tests/data/writing.json", "test")
