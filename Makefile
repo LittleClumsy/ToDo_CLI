@@ -32,7 +32,7 @@ major:
 	@echo "Updated SonarCloud version"
 
 setup:
-	pipenv install --dev
+	pipenv install --dev 
 
 setup-build:
 	pipenv install
@@ -45,6 +45,9 @@ clean:
 	rm -rf htmlcov
 	rm -rf src/testing/tasks.json
 	rm -rf src/testing/unit/tasks.json
+	rm -rf ./dist
+	rm -rf ./build
+	rm -rf ./todo.spec
 
 coverage: test
 	@pipenv run coverage html 
@@ -71,3 +74,6 @@ update:
 pipeline:
 	@make test
 	@make lint
+
+build: 
+	@pipenv run pyinstaller --onefile todo.py 
