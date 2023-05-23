@@ -83,7 +83,7 @@ def test_read_config_file_with_invalid_json():
     """
     setup_test_directory()
     setup_test_config("INVALID JSON")
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         read_config_file()
 
 

@@ -44,7 +44,7 @@ FileNotFoundError: Config file not found at /home/user/.todo/config.json
 ```python
 >>> from todo_cli.config.config_controller import read_config_file
 >>> read_config_file()
-ValueError: Config file at /home/user/.todo/config.json is not valid JSON.
+TypeError: Config file at /home/user/.todo/config.json is not valid JSON.
 ```
 
 ## Write config file

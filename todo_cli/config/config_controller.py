@@ -58,7 +58,7 @@ def read_config_file() -> dict | list:
 
     Raises:
         FileNotFoundError: If the file does not exist.
-        ValueError: If the file is not valid json.
+        TypeError: If the file is not valid json.
 
     Examples:
         >>> read_config_file()
@@ -70,8 +70,8 @@ def read_config_file() -> dict | list:
     except FileNotFoundError as file_not_found_error:
         raise FileNotFoundError(
             f"Config file not found at {file_path}.") from file_not_found_error
-    except ValueError as value_error:
-        raise ValueError(
+    except TypeError as value_error:
+        raise TypeError(
             f"Config file at {file_path} is not valid JSON.") from value_error
     return config
 

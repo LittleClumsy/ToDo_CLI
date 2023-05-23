@@ -43,8 +43,6 @@ clean:
 	rm -rf .coverage
 	rm -rf coverage.xml
 	rm -rf htmlcov
-	rm -rf src/testing/tasks.json
-	rm -rf src/testing/unit/tasks.json
 	rm -rf ./dist
 	rm -rf ./build
 	rm -rf ./todo.spec

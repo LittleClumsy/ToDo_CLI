@@ -18,10 +18,7 @@ The install app function is responsible for installing the required files for th
 
 This function can raise the following exceptions:
 * FileNotFoundError - If the directory for installation does not exist, this will only happen if the installation for the directory fails.
-
-## Handle install error function
-
-The handle install error function is responsible for handling the errors that occur during installation. It will print the error message and return the appropriate exit code.
+* TypeError - If you try to write a value to a JSON file that is not of type dictionary or list.
 
 ## More documentation
 
