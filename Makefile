@@ -32,7 +32,7 @@ major:
 	@echo "Updated SonarCloud version"
 
 setup:
-	pipenv install --dev
+	pipenv install --dev 
 
 setup-build:
 	pipenv install
