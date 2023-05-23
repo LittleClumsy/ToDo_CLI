@@ -32,3 +32,6 @@ jobs:
           pipenv run pylint todo_cli/
           echo "Linting Tests..."
           pipenv run pylint tests/
+      - name: Build
+        run: |
+          pipenv run pyinstaller --onefile todo.py

@@ -19,3 +19,4 @@ Here you will find all developer docs relating to this project. Please look thro
 * [Sonar docs](misc/sonar.md)
 * [Version docs](misc/version.md)
 * [Exit codes docs](misc/exit_codes.md)
+* [Pipeline docs](misc/Pipelines.md)
