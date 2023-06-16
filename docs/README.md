@@ -10,6 +10,8 @@ Here you will find all developer docs relating to this project. Please look thro
 * [path_helper.py docs](source/path_helper.md)
 * [json helper.py docs](source/json_helper.md)
 * [error.py docs](source/error.md)
+* [logger.py docs](source/logger.md)
+* [tasks_helper.py docs](source/tasks_helper.md)
 
 ## Other
 * [.gitignore docs](misc/ignore.md)
