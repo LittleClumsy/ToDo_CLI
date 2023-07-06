@@ -7,6 +7,7 @@ import sys
 # File imports
 from todo_cli.cli.cli_controller import app
 from todo_cli.config.config_controller import install_config_file
+from todo_cli.err.error import handle_json_error, handle_install_error
 from todo_cli.helpers.storage_helper import create_storage_directory
 from todo_cli.helpers.tasks_helper import install_tasks_file
 from todo_cli.logs.logger import create_log
@@ -24,8 +25,10 @@ def main() -> int:
     """
     try:
         install_app()
-    except FileNotFoundError:
-        return handle_install_error()
+    except FileNotFoundError as error:
+        return handle_install_error(error)
+    except TypeError as error:
+        return handle_json_error(error)
 
     create_log("Setting default exit code to 0")
     exit_code = 0
@@ -44,6 +47,8 @@ def install_app() -> None:
     Raises:
         FileNotFoundError: If the application cannot create the storage
             directory or files.
+        TypeError: If you you try to write a value to a JSON file that is not of
+            type dictionary or list.
     """
     installed_storage_directory = create_storage_directory()
     installed_config_file = install_config_file()
@@ -53,25 +58,6 @@ def install_app() -> None:
     create_log(
         f"Installed storage directory: {installed_storage_directory}")
     create_log(f"Installed config file: {installed_config_file}")
-
-
-def handle_install_error() -> int:
-    """
-    Handles an install error. This function is called when the application
-    cannot create the storage directory or files.
-
-    Returns:
-        int: The exit code of the application.
-
-    Examples:
-        >>> handle_install_error()
-        Install Error [1]: Could not create storage directory or files.
-        Please report this issue to the developer.
-        [returns] 1
-    """
-    print("Install Error [1]: Could not create storage directory or files.")
-    print("Please report this issue to the developer.")
-    return 1
 
 
 if __name__ == "__main__":

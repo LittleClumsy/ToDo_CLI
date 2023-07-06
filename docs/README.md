@@ -8,6 +8,8 @@ Here you will find all developer docs relating to this project. Please look thro
 * [config_controller.py docs](source/config_controller.md)
 * [storage_helper.py docs](source/storage_helper.md)
 * [path_helper.py docs](source/path_helper.md)
+* [json helper.py docs](source/json_helper.md)
+* [error.py docs](source/error.md)
 
 ## Other
 * [.gitignore docs](misc/ignore.md)
@@ -17,3 +19,4 @@ Here you will find all developer docs relating to this project. Please look thro
 * [Sonar docs](misc/sonar.md)
 * [Version docs](misc/version.md)
 * [Exit codes docs](misc/exit_codes.md)
+* [Pipeline docs](misc/Pipelines.md)
