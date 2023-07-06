@@ -1,12 +1,3 @@
-patch:
-	@pipenv run python versioner.py patch
-
-minor:
-	@pipenv run python versioner.py minor
-
-major:
-	@pipenv run python versioner.py major
-
 setup:
 	pipenv install --dev
 

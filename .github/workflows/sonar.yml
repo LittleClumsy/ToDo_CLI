@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-      - uses: falti/dotenv-action@v1.0.4
       - name: Setup
         run: |
           pip install --upgrade pip
