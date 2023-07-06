@@ -5,7 +5,7 @@ This module/file is the entry point for the todo application.
 import sys
 
 # File imports
-from todo_cli.cli.cli_controller import handle_cli_args
+from todo_cli.cli.cli_controller import app
 from todo_cli.config.config_controller import install_config_file
 from todo_cli.err.error import handle_json_error, handle_install_error
 from todo_cli.helpers.storage_helper import create_storage_directory
@@ -13,7 +13,7 @@ from todo_cli.helpers.tasks_helper import install_tasks_file
 from todo_cli.logs.logger import create_log
 
 
-def main(args: list[str]) -> int:
+def main() -> int:
     """
     The entry point for the todo application.
 
@@ -33,8 +33,8 @@ def main(args: list[str]) -> int:
     create_log("Setting default exit code to 0")
     exit_code = 0
 
-    create_log(f"Handling CLI arguments: {args}")
-    handle_cli_args(args)
+    create_log("Running Typer app")
+    app()
 
     create_log(f"Returning exit code: {exit_code}")
     return exit_code
@@ -62,6 +62,5 @@ def install_app() -> None:
 
 
 if __name__ == "__main__":
-    del sys.argv[0]
-    EXIT_CODE = main(sys.argv)
+    EXIT_CODE = main()
     sys.exit(EXIT_CODE)

@@ -1,21 +1,21 @@
 """
 This module contains all logic pertaining to the CLI commands
 """
+import typer
 from todo_cli.helpers.tasks_helper import read_tasks_file, create_task, write_tasks_file, view_tasks
 
-def handle_cli_args(cli_args: list[str]) -> None:
-    """
-    This function will take redirect to the corresponding function for the CLI arg.
+app = typer.Typer()
 
-    Args:
-        cli_args (list[str]): The CLI args passed.
-    """
-    if len(cli_args) < 1:
-        print("This should be the help command.")
-    elif cli_args[0] == "create":
-        adding_content()
-    elif cli_args[0] == "view":
-        view_tasks()
+@app.command()
+def create() -> None:
+    """Creates new task"""
+    adding_content()
+
+
+@app.command()
+def view() -> None:
+    """View existing tasks """
+    view_tasks()
 
 
 def adding_content():
