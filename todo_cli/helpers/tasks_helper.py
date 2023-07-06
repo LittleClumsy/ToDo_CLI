@@ -67,3 +67,5 @@ def view_tasks():
     tasks_data = read_tasks_file()
     for item in tasks_data:
         print(item["name"], '|', item["date"])
+
+

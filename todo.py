@@ -12,6 +12,8 @@ from todo_cli.helpers.tasks_helper import install_tasks_file
 from todo_cli.logs.logger import create_log
 
 
+
+
 def main(args: list[str]) -> int:
     """
     The entry point for the todo application.
@@ -78,3 +80,6 @@ if __name__ == "__main__":
     del sys.argv[0]
     EXIT_CODE = main(sys.argv)
     sys.exit(EXIT_CODE)
+    
+
+
