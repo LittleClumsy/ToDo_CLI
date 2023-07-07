@@ -24,6 +24,14 @@ def setup_test_config(content="{\"test\": \"Config\"}"):
     with open(config_file, "w", encoding="utf-8") as file:
         file.write(content)
 
+def setup_test_tasks(content="[]"):
+    """
+    This function is responsible for setting up the test config.
+    """
+    tasks_file = path.join(STORAGEDIR, "tasks.json")
+    with open(tasks_file, "w", encoding="utf-8") as file:
+        file.write(content)
+
 
 def clean_up():
     """
