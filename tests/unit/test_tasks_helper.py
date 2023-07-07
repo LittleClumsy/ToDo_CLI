@@ -60,12 +60,11 @@ class TestTasksHelper(TestCase):
         result = read_tasks_file()
         assert result == [{"test": "test"}]
 
-    @patch("sys.stdin", StringIO("laundry\n2023\n"))
     def test_create_task(self):
         """
         This function is responsible for testing the create_task function.
         """
-        result = create_task()
+        result = create_task(name="laundry", date="2023")
         assert result == {"name": "laundry", "date": "2023"}
 
     def test_view_tasks(self):
