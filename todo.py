@@ -52,12 +52,13 @@ def install_app() -> None:
     """
     installed_storage_directory = create_storage_directory()
     installed_config_file = install_config_file()
-    install_tasks_file()
+    installed_tasks_file = install_tasks_file()
 
     create_log("Starting application")
     create_log(
         f"Installed storage directory: {installed_storage_directory}")
     create_log(f"Installed config file: {installed_config_file}")
+    create_log(f"Installed tasks file: {installed_tasks_file}")
 
 
 if __name__ == "__main__":

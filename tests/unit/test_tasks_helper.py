@@ -86,3 +86,10 @@ class TestTasksHelper(TestCase):
         with patch("sys.stdout", new=StringIO()) as fake_out:
             view_tasks()
             assert fake_out.getvalue() == "laundry | 2023\ndishes | 2022\n"
+
+    def test_install_tasks_file_again(self):
+        """
+        This function is responsible for testing the install_tasks_file function.
+        """
+        result = install_tasks_file()
+        assert result is False

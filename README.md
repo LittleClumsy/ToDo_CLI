@@ -49,7 +49,7 @@ $ python todo.py create
 When you want to view all your tasks:
 
 ```bash
-$ python todo.py
+$ python todo.py view
 ```
 # Issues
 We are aware of the problem where the program wont run if the config file already exists. We are looking at fixing it.

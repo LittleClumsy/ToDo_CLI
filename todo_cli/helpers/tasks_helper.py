@@ -7,14 +7,24 @@ from todo_cli.helpers.storage_helper import get_storage_directory
 from todo_cli.helpers.json_helper import read_json_file, write_json_file
 
 
-def install_tasks_file():
+def install_tasks_file() -> bool:
     """
-    Creates the Storage files in the directory that the user specifies.
+    Creates the tasks.json file if it does not exist.
+
+    Returns:
+        bool: True if the file was created, False if it already exists.
+
+    Raises:
+        FileNotFoundError: If the application cannot create the tasks file.
+        TypeError: If you you try to write a value to a JSON file that is not of
+            type dictionary or list.
     """
     storage_directory = get_storage_directory()
     tasks_file_path = join_paths(storage_directory, "tasks.json")
     if not path_exists(tasks_file_path):
         write_json_file(tasks_file_path, [])
+        return True
+    return False
 
 
 def read_tasks_file() -> str:
@@ -22,7 +32,7 @@ def read_tasks_file() -> str:
     This will read the tasks.json file.
 
     Returns:
-        str: The directory to tasks.json file.
+        str: The data from tasks.json file.
     """
     storage_directory = get_storage_directory()
     storage_file = f"{storage_directory}/tasks.json"
@@ -34,8 +44,9 @@ def write_tasks_file(content: list[dict]) -> None:
     """
     This will write content to task file and if the task file doesnt exist
     it will create tasks.json.
-    Returns:
-        str: The directory to tasks.json file.
+
+    Args:
+        content (list[dict]): The data to write to the tasks.json file.
     """
     storage_directory = get_storage_directory()
     storage_file = f"{storage_directory}/tasks.json"
@@ -51,7 +62,7 @@ def create_task(name: str, date: str) -> dict:
         date(str): The date
 
     Returns:
-        dict: Data for tasks.json file.
+        dict: a singular task dictionary.
     """
 
     new_task = {
@@ -64,7 +75,7 @@ def create_task(name: str, date: str) -> dict:
 
 def view_tasks():
     """
-    This will allow user to view their existing tasks.
+    This will print all tasks in the tasks.json file to the console/terminal.
     """
     tasks_data = read_tasks_file()
     for item in tasks_data:
