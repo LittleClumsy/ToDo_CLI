@@ -42,15 +42,17 @@ def write_tasks_file(content: list[dict]) -> None:
     write_json_file(storage_file, content)
 
 
-def create_task() -> dict:
+def create_task(name: str, date: str) -> dict:
     """
     This will create a new task dictionary and return it.
+
+    args:
+        name(str): This is the name of the task
+        date(str): The date
+
     Returns:
         dict: Data for tasks.json file.
     """
-
-    name = input("Enter Name: ")
-    date = input("Enter date: ")
 
     new_task = {
         "name": name,

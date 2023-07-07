@@ -1,28 +1,49 @@
 """
 This module contains all logic pertaining to the CLI commands
 """
-from todo_cli.helpers.tasks_helper import read_tasks_file, create_task, write_tasks_file, view_tasks
+import typer
+from typing_extensions import Annotated
+from todo_cli.helpers.tasks_helper import (
+    read_tasks_file,
+    create_task,
+    write_tasks_file,
+    view_tasks
+)
 
-def handle_cli_args(cli_args: list[str]) -> None:
+
+app = typer.Typer()
+
+
+@app.command()
+def create(
+    name: Annotated[str, typer.Option(prompt=True)],
+    date: Annotated[str, typer.Option(prompt=True)]
+) -> None:
     """
-    This function will take redirect to the corresponding function for the CLI arg.
+    Creates new task
 
-    Args:
-        cli_args (list[str]): The CLI args passed.
+    args:
+        name(str): This is the name of the task
+        date(str): The date
     """
-    if len(cli_args) < 1:
-        print("This should be the help command.")
-    elif cli_args[0] == "create":
-        adding_content()
-    elif cli_args[0] == "view":
-        view_tasks()
+    adding_content(name, date)
 
 
-def adding_content():
+@app.command()
+def view() -> None:
+    """View existing tasks"""
+    view_tasks()
+
+
+def adding_content(name: str, date: str):
     """
     This function will handle adding a task to the tasks.json file
+
+    args:
+        name(str): This is the name of the task
+        date(str): The date
     """
     tasks_data = read_tasks_file()
-    new_task = create_task()
+    new_task = create_task(name, date)
     tasks_data.append(new_task)
     write_tasks_file(tasks_data)
