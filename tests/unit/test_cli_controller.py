@@ -87,7 +87,7 @@ def test_edit_command_with_uuid():
     This will test that edit command fails if you try edit uuid field.
     """
     result = runner.invoke(
-        app, ["edit", "--id", "abcd1234", "--field-name", "UUID", "--value", "2023"])
+        app, ["edit", "--task-id", "abcd1234", "--field-name", "UUID", "--value", "2023"])
     assert result.exit_code == 3
     assert result.stdout == "Invalid field. The UUID can not be edited.\n"
 
@@ -97,6 +97,6 @@ def test_edit_command_with_invalid_field():
     This will test that edit command fails if you try edit uuid field.
     """
     result = runner.invoke(
-        app, ["edit", "--id", "abcd1234", "--field-name", "eggs", "--value", "2023"])
+        app, ["edit", "--task-id", "abcd1234", "--field-name", "eggs", "--value", "2023"])
     assert result.exit_code == 3
     assert result.stdout == "That field does not exist! Please select a valid field to edit.\n"
