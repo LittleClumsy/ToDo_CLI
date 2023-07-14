@@ -21,4 +21,9 @@
         <td>JSON Error</td>
         <td>This error will only happen if there was an attempt to write invalid json to a file, or if there was an attempt to read invalid json. NOTE: We consider anything that cannot be converted to a dictionary or a list as invalid json. We understand that is not strictly true but that is the limitation.</td>
     </tr>
+     <tr>
+        <td>3</td>
+        <td>Validation Error</td>
+        <td>This error will occur when user inputs are not valid for given command. This should usually be followed by an error message explaining what went wrong.</td>
+    </tr>
 </table>

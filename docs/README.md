@@ -12,6 +12,7 @@ Here you will find all developer docs relating to this project. Please look thro
 * [error.py docs](source/error.md)
 * [logger.py docs](source/logger.md)
 * [tasks_helper.py docs](source/tasks_helper.md)
+* [cli_controller.py docs](source/cli_controller.md)
 
 ## Other
 * [.gitignore docs](misc/ignore.md)
