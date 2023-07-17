@@ -23,3 +23,4 @@ Here you will find all developer docs relating to this project. Please look thro
 * [Version docs](misc/version.md)
 * [Exit codes docs](misc/exit_codes.md)
 * [Pipeline docs](misc/Pipelines.md)
+* [Command docs](misc/Commands.md)
