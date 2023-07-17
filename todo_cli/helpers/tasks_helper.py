@@ -53,7 +53,7 @@ def write_tasks_file(content: list[dict]) -> None:
     write_json_file(storage_file, content)
 
 
-def create_task(task_uuid: str, name: str, date: str) -> dict:
+def create_task(task_uuid: str, name: str, date: str, priority: str) -> dict:
     """
     This will create a new task dictionary and return it.
 
@@ -68,7 +68,8 @@ def create_task(task_uuid: str, name: str, date: str) -> dict:
     new_task = {
         "UUID": task_uuid,
         "name": name,
-        "date": date
+        "date": date,
+        "priority": priority
     }
 
     return new_task
@@ -80,4 +81,5 @@ def view_tasks():
     """
     tasks_data = read_tasks_file()
     for item in tasks_data:
-        print(item["UUID"], '|', item["name"], '|', item["date"])
+        print(item["UUID"], '|', item["name"], '|',
+              item["date"], '|', item["priority"])

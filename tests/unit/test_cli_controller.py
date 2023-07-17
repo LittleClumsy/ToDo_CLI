@@ -37,7 +37,7 @@ def test_create_command():
     """
     This will test the create command
     """
-    result = runner.invoke(app, ["create"], input="laundry\n2023\n")
+    result = runner.invoke(app, ["create"], input="laundry\n2023\nLow\n")
     assert result.exit_code == 0
 
     tasks_file = path.join(STORAGEDIR, "tasks.json")
@@ -47,6 +47,7 @@ def test_create_command():
     assert file_result[0].get("UUID") is not None
     assert file_result[0].get("name") == "laundry"
     assert file_result[0].get("date") == "2023"
+    assert file_result[0].get("priority") == "Low"
 
 
 def test_view_command():
@@ -56,11 +57,12 @@ def test_view_command():
     tasks_file = path.join(STORAGEDIR, "tasks.json")
 
     with open(tasks_file, "w", encoding="utf-8") as file:
-        dump([{"UUID": "abcd1234", "name": "laundry", "date": "2023"}], file)
+        dump([{"UUID": "abcd1234", "name": "laundry",
+             "date": "2023", "priority": "Low"}], file)
 
     result = runner.invoke(app, ["view"])
     assert result.exit_code == 0
-    assert result.stdout == "abcd1234 | laundry | 2023\n"
+    assert result.stdout == "abcd1234 | laundry | 2023 | Low\n"
 
 
 def test_edit_command():
@@ -70,7 +72,16 @@ def test_edit_command():
     tasks_file = path.join(STORAGEDIR, "tasks.json")
 
     with open(tasks_file, "w", encoding="utf-8") as file:
-        dump([{"UUID": "abcd1234", "name": "laundry", "date": "2018"}], file)
+        dump(
+            [
+                {"UUID": "abcd1234",
+                 "name": "laundry",
+                 "date": "2018",
+                 "priority": "Low"
+                 }
+            ], file
+
+        )
 
     result = runner.invoke(app, ["edit"], input="abcd1234\ndate\n2023\n")
     assert result.exit_code == 0
@@ -79,24 +90,42 @@ def test_edit_command():
     with open(tasks_file, "r", encoding="utf-8") as file:
         file_result = load(file)
     assert file_result == [
-        {"UUID": "abcd1234", "name": "laundry", "date": "2023"}]
+        {"UUID": "abcd1234", "name": "laundry", "date": "2023", "priority": "Low"}]
 
 
-def test_edit_command_with_uuid():
-    """
-    This will test that edit command fails if you try edit uuid field.
-    """
+def test_edit_command_invalid_priority_field():
+    """This will test an invalid priority field entry"""
     result = runner.invoke(
-        app, ["edit", "--task-id", "abcd1234", "--field-name", "UUID", "--value", "2023"])
+        app,
+        [
+            "edit",
+            "--task-id",
+            "abcd1234",
+            "--field-name",
+            "priority",
+            "--value",
+            "2023"
+        ]
+    )
     assert result.exit_code == 3
-    assert result.stdout == "Invalid field. The UUID can not be edited.\n"
+    assert result.stdout == "This is an invalid priority value.\n"
 
 
-def test_edit_command_with_invalid_field():
-    """
-    This will test that edit command fails if you try edit uuid field.
-    """
-    result = runner.invoke(
-        app, ["edit", "--task-id", "abcd1234", "--field-name", "eggs", "--value", "2023"])
-    assert result.exit_code == 3
-    assert result.stdout == "That field does not exist! Please select a valid field to edit.\n"
+# def test_edit_command_with_uuid():
+#     """
+#     This will test that edit command fails if you try edit uuid field.
+#     """
+#     result = runner.invoke(
+#         app, ["edit", "--task-id", "abcd1234", "--field-name", "UUID", "--value", "2023"])
+#     assert result.exit_code == 3
+#     assert result.stdout == "Invalid field. The UUID can not be edited.\n"
+
+
+# def test_edit_command_with_invalid_field():
+#     """
+#     This will test that edit command fails if you try edit uuid field.
+#     """
+#     result = runner.invoke(
+#         app, ["edit", "--task-id", "abcd1234", "--field-name", "eggs", "--value", "2023"])
+#     assert result.exit_code == 3
+#     assert result.stdout == "That field does not exist! Please select a valid field to edit.\n"

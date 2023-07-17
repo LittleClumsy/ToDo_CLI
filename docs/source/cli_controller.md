@@ -4,7 +4,7 @@ This module is used to help with CLI commands.
 
 ## Create
 
-The create function is used to create a new task. There will be a prompt in the terminal for a 'name' and 'date'. A UUID will be generated for the task. These values get passed into the adding_content function to add it to the existing tasks.
+The create function is used to create a new task. There will be a prompt in the terminal for a 'name', 'date' and 'priority_field'. A UUID will be generated for the task. These values get passed into the adding_content function to add it to the existing tasks.
 
 
 ## View
@@ -17,19 +17,19 @@ The edit function allows you to edit existing tasks. It will prompt for an id(th
 
 ```python
 >>> from todo_cli.cli.cli_controller import edit
->>> edit('abcd1234', 'name', 'Run')
+>>> edit('abcd1234', 'name', 'Run', 'Low')
 None
 ```
 
 ```python
 >>> from todo_cli.cli.cli_controller import edit
->>> edit('abcd1234', 'id', 'Run')
+>>> edit('abcd1234', 'id', 'Run', 'Low')
 Invalid field. The id can not be edited.
 ```
 
 ```python
 >>> from todo_cli.cli.cli_controller import edit
->>> edit('abcd1234', 'Hello', 'Run')
+>>> edit('abcd1234', 'Hello', 'Run', 'Low')
 That field does not exist! Please select a valid field to edit.
 ```
 
