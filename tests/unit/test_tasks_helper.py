@@ -64,8 +64,14 @@ class TestTasksHelper(TestCase):
         """
         This function is responsible for testing the create_task function.
         """
-        result = create_task(name="laundry", date="2023")
-        assert result == {"name": "laundry", "date": "2023"}
+        result = create_task(
+            task_uuid="abcd1234",
+            name="laundry", date="2023"
+        )
+        assert result == {
+            "UUID": "abcd1234",
+            "name": "laundry", "date": "2023"
+        }
 
     def test_view_tasks(self):
         """
@@ -74,10 +80,12 @@ class TestTasksHelper(TestCase):
         write_tasks_file(
             [
                 {
+                    "UUID": "abcd1234",
                     "name": "laundry",
                     "date": "2023"
                 },
                 {
+                    "UUID": "abc123",
                     "name": "dishes",
                     "date": "2022"
                 }
@@ -85,7 +93,7 @@ class TestTasksHelper(TestCase):
         )
         with patch("sys.stdout", new=StringIO()) as fake_out:
             view_tasks()
-            assert fake_out.getvalue() == "laundry | 2023\ndishes | 2022\n"
+            assert fake_out.getvalue() == "abcd1234 | laundry | 2023\nabc123 | dishes | 2022\n"
 
     def test_install_tasks_file_again(self):
         """
