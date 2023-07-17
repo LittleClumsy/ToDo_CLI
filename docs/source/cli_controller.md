@@ -6,9 +6,6 @@ This module is used to help with CLI commands.
 
 The create function is used to create a new task. There will be a prompt in the terminal for a 'name' and 'date'. A UUID will be generated for the task. These values get passed into the adding_content function to add it to the existing tasks.
 
-```python
-
-```
 
 ## View
 
