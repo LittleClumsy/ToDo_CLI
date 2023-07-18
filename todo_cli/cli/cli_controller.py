@@ -2,6 +2,7 @@
 This module contains all logic pertaining to the CLI commands
 """
 import uuid
+from enum import Enum
 import typer
 from typing_extensions import Annotated
 from todo_cli.helpers.tasks_helper import (
@@ -15,10 +16,32 @@ from todo_cli.helpers.tasks_helper import (
 app = typer.Typer()
 
 
+class FieldName(str, Enum):
+    """
+    This clas contains the possible field names for tasks
+    """
+    NAME = "name"
+    DATE = "date"
+    PRIORITY = "priority"
+
+
+class Priority(str, Enum):
+    """
+    This class contains the different priority fields for tasks
+    """
+    VERY_HIGH = "Very High"
+    HIGH = "High"
+    MEDIUM = "Medium"
+    LOW = "Low"
+    VERY_LOW = "Very Low"
+
+
 @app.command()
 def create(
     name: Annotated[str, typer.Option(prompt=True)],
-    date: Annotated[str, typer.Option(prompt=True)]
+    date: Annotated[str, typer.Option(prompt=True)],
+    priority: Annotated[Priority,
+                        typer.Option(case_sensitive=False, prompt=True)]
 ) -> None:
     """
     Creates new task.
@@ -26,9 +49,11 @@ def create(
     args:
         name(str): This is the name of the task
         date(str): The date
+        priority_field(str): The level of priority of the task
     """
     task_uuid = str(uuid.uuid4())
-    adding_content(task_uuid, name, date)
+
+    adding_content(task_uuid, name, date, priority)
 
 
 @app.command()
@@ -40,7 +65,7 @@ def view() -> None:
 @app.command()
 def edit(
     task_id: Annotated[str, typer.Option(prompt=True)],
-    field_name: Annotated[str, typer.Option(prompt=True)],
+    field_name: Annotated[FieldName, typer.Option(prompt=True)],
     value: Annotated[str, typer.Option(prompt=True)]
 ) -> None:
     """
@@ -51,11 +76,11 @@ def edit(
         field_name(str): This is the field you would like to edit
         value(str): The new value for the field name
     """
-    if field_name == "UUID":
-        print("Invalid field. The UUID can not be edited.")
-        raise typer.Exit(code=3)
-    if field_name not in ('name', 'date'):
-        print("That field does not exist! Please select a valid field to edit.")
+
+    all_priority_options = [element.value for element in Priority]
+
+    if field_name == "priority" and value not in all_priority_options:
+        print("This is an invalid priority value.")
         raise typer.Exit(code=3)
 
     content = read_tasks_file()
@@ -65,15 +90,17 @@ def edit(
     write_tasks_file(content)
 
 
-def adding_content(task_id: str, name: str, date: str):
+def adding_content(task_id: str, name: str, date: str, priority: str):
     """
     This function will handle adding a task to the tasks.json file
 
     args:
+        task_id(str): This is the UUID of the task 
         name(str): This is the name of the task
         date(str): The date
+        Priority_field(str): The level of priority for the task
     """
     tasks_data = read_tasks_file()
-    new_task = create_task(task_id, name, date)
+    new_task = create_task(task_id, name, date, priority)
     tasks_data.append(new_task)
     write_tasks_file(tasks_data)
