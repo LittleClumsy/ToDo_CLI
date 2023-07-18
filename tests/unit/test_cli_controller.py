@@ -3,6 +3,7 @@ This module will contain the tests for the cli_controller module
 """
 from json import load, dump
 from os import path
+from tabulate import tabulate
 
 import pytest
 from typer.testing import CliRunner
@@ -60,9 +61,20 @@ def test_view_command():
         dump([{"UUID": "abcd1234", "name": "laundry",
              "date": "2023", "priority": "Low"}], file)
 
+    with open(tasks_file, "r", encoding="utf-8") as file:
+        file_result = load(file)
+
     result = runner.invoke(app, ["view"])
     assert result.exit_code == 0
-    assert result.stdout == "abcd1234 | laundry | 2023 | Low\n"
+
+    expected_table = tabulate(
+        [
+            [task["UUID"], task["name"], task["date"], task["priority"]]for task in file_result
+        ],
+        headers=["UUID", "name", "date", "priority"],
+        tablefmt="rounded_grid"
+    )
+    assert result.stdout == (expected_table + "\n")
 
 
 def test_edit_command():
@@ -109,23 +121,3 @@ def test_edit_command_invalid_priority_field():
     )
     assert result.exit_code == 3
     assert result.stdout == "This is an invalid priority value.\n"
-
-
-# def test_edit_command_with_uuid():
-#     """
-#     This will test that edit command fails if you try edit uuid field.
-#     """
-#     result = runner.invoke(
-#         app, ["edit", "--task-id", "abcd1234", "--field-name", "UUID", "--value", "2023"])
-#     assert result.exit_code == 3
-#     assert result.stdout == "Invalid field. The UUID can not be edited.\n"
-
-
-# def test_edit_command_with_invalid_field():
-#     """
-#     This will test that edit command fails if you try edit uuid field.
-#     """
-#     result = runner.invoke(
-#         app, ["edit", "--task-id", "abcd1234", "--field-name", "eggs", "--value", "2023"])
-#     assert result.exit_code == 3
-#     assert result.stdout == "That field does not exist! Please select a valid field to edit.\n"
