@@ -77,6 +77,7 @@ def test_view_command():
     assert result.stdout == (expected_table + "\n")
 
 
+
 def test_edit_command():
     """
     This will test the edit command
@@ -121,3 +122,4 @@ def test_edit_command_invalid_priority_field():
     )
     assert result.exit_code == 3
     assert result.stdout == "This is an invalid priority value.\n"
+

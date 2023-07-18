@@ -3,7 +3,9 @@ This module contains all logic pertaining to the CLI commands
 """
 import uuid
 from enum import Enum
+
 from tabulate import tabulate
+
 import typer
 from typing_extensions import Annotated
 from todo_cli.helpers.tasks_helper import (
