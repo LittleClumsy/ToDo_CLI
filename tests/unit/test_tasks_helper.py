@@ -66,11 +66,15 @@ class TestTasksHelper(TestCase):
         """
         result = create_task(
             task_uuid="abcd1234",
-            name="laundry", date="2023"
+            name="laundry",
+            date="2023",
+            priority="Low"
         )
         assert result == {
             "UUID": "abcd1234",
-            "name": "laundry", "date": "2023"
+            "name": "laundry",
+            "date": "2023",
+            "priority": "Low"
         }
 
     def test_view_tasks(self):
@@ -82,18 +86,21 @@ class TestTasksHelper(TestCase):
                 {
                     "UUID": "abcd1234",
                     "name": "laundry",
-                    "date": "2023"
+                    "date": "2023",
+                    "priority": "Low"
                 },
                 {
                     "UUID": "abc123",
                     "name": "dishes",
-                    "date": "2022"
+                    "date": "2022",
+                    "priority": "Low"
                 }
             ]
         )
         with patch("sys.stdout", new=StringIO()) as fake_out:
             view_tasks()
-            assert fake_out.getvalue() == "abcd1234 | laundry | 2023\nabc123 | dishes | 2022\n"
+            assert fake_out.getvalue() == \
+                "abcd1234 | laundry | 2023 | Low\nabc123 | dishes | 2022 | Low\n"
 
     def test_install_tasks_file_again(self):
         """
