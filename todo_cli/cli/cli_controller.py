@@ -3,13 +3,15 @@ This module contains all logic pertaining to the CLI commands
 """
 import uuid
 from enum import Enum
+
+from tabulate import tabulate
+
 import typer
 from typing_extensions import Annotated
 from todo_cli.helpers.tasks_helper import (
     read_tasks_file,
     create_task,
-    write_tasks_file,
-    view_tasks
+    write_tasks_file
 )
 
 
@@ -58,8 +60,13 @@ def create(
 
 @app.command()
 def view() -> None:
-    """View existing tasks"""
-    view_tasks()
+    """View existing tasks in the form of a table"""
+    tasks = read_tasks_file()
+    headers = ["UUID", "name", "date", "priority"]
+    task_rows = [[task["UUID"], task["name"],
+                  task["date"], task["priority"]]for task in tasks]
+    table = tabulate(task_rows, headers, tablefmt="rounded_grid")
+    print(table)
 
 
 @app.command()

@@ -73,13 +73,3 @@ def create_task(task_uuid: str, name: str, date: str, priority: str) -> dict:
     }
 
     return new_task
-
-
-def view_tasks():
-    """
-    This will print all tasks in the tasks.json file to the console/terminal.
-    """
-    tasks_data = read_tasks_file()
-    for item in tasks_data:
-        print(item["UUID"], '|', item["name"], '|',
-              item["date"], '|', item["priority"])

@@ -2,10 +2,7 @@
 This module contains tests for the tasks_helper module.
 """
 
-from io import StringIO
-
 from unittest import TestCase
-from unittest.mock import patch
 
 import pytest
 
@@ -19,7 +16,6 @@ from todo_cli.helpers.tasks_helper import (
     read_tasks_file,
     write_tasks_file,
     create_task,
-    view_tasks
 )
 
 
@@ -76,31 +72,6 @@ class TestTasksHelper(TestCase):
             "date": "2023",
             "priority": "Low"
         }
-
-    def test_view_tasks(self):
-        """
-        This function is responsible for testing the view_tasks function.
-        """
-        write_tasks_file(
-            [
-                {
-                    "UUID": "abcd1234",
-                    "name": "laundry",
-                    "date": "2023",
-                    "priority": "Low"
-                },
-                {
-                    "UUID": "abc123",
-                    "name": "dishes",
-                    "date": "2022",
-                    "priority": "Low"
-                }
-            ]
-        )
-        with patch("sys.stdout", new=StringIO()) as fake_out:
-            view_tasks()
-            assert fake_out.getvalue() == \
-                "abcd1234 | laundry | 2023 | Low\nabc123 | dishes | 2022 | Low\n"
 
     def test_install_tasks_file_again(self):
         """

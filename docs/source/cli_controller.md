@@ -9,7 +9,7 @@ The create function is used to create a new task. There will be a prompt in the 
 
 ## View
 
-This function is used to view existing tasks. It uses the view_tasks function to print the UUID, name and data of the tasks.
+This function is used to view existing tasks. It uses Tabulate to view the tasks in a table format.
 
 ## Edit
 

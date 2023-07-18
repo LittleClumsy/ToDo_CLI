@@ -49,14 +49,3 @@ The create task function is responsible for creating a task and returning it as 
 {'This is a task': 'This is a task'}
 ```
 
-## View tasks function
-
-The view tasks function is responsible for viewing the tasks. This function will return the tasks as a list.
-
-```python
->>> from todo_cli.helpers.tasks_helper import view_tasks
->>> view_tasks()
-"task #1 | This is task #1"
-"task #2 | This is task #2"
-"task #3 | This is task #3"
-```
