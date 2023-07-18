@@ -61,15 +61,12 @@ def test_view_command():
         dump([{"UUID": "abcd1234", "name": "laundry",
              "date": "2023", "priority": "Low"}], file)
 
-    with open(tasks_file, "r", encoding="utf-8") as file:
-        file_result = load(file)
-
     result = runner.invoke(app, ["view"])
     assert result.exit_code == 0
 
     expected_table = tabulate(
         [
-            [task["UUID"], task["name"], task["date"], task["priority"]]for task in file_result
+            ["abcd1234","laundry", "2023", "Low"]
         ],
         headers=["UUID", "name", "date", "priority"],
         tablefmt="rounded_grid"

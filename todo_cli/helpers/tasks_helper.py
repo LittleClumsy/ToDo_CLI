@@ -73,5 +73,3 @@ def create_task(task_uuid: str, name: str, date: str, priority: str) -> dict:
     }
 
     return new_task
-
-
