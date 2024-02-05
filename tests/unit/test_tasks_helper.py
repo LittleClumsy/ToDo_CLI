@@ -105,31 +105,30 @@ class TestTasksHelper(TestCase):
         write_tasks_file([{"UUID": "2345"}])
         with pytest.raises(Exit):
             delete_task(['123'])
-            
+
     def test_delete_task_valid_id_confirmation_no(self):
         write_tasks_file([{"UUID": "123"}])
-        
+
         with patch("typer.confirm", return_value=False) as mock_confirm, \
-            patch("builtins.print") as mock_print:
-            
+                patch("builtins.print") as mock_print:
+
             with pytest.raises(Exit) as e:
                 delete_task(['123'])
-            
+
             assert e.value.exit_code == 0
             mock_confirm.assert_called_once()
             mock_print.assert_called_with("Not deleting task.")
-            
+
     def test_delete_task(self):
         """
         This function is responsible for testing the delete task
         """
         result = write_tasks_file([{"UUID": "123"}])
-        
+
         with patch("typer.confirm", return_value=True) as mock_confirm, \
-            patch("builtins.print") as mock_print:
-            
+                patch("builtins.print") as mock_print:
+
             delete_task(['123'])
-            
+
             mock_confirm.assert_called_once()
             mock_print.assert_any_call("Deleted task with ID(s): ['123']")
-            

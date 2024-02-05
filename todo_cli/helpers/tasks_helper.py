@@ -97,11 +97,6 @@ def delete_task(task_ids: List[str]) -> None:
     if not typer.confirm("Are you sure you want to delete this task?"):
         print("Not deleting task.")
         raise typer.Exit(code=0)
-    else: 
-        print(f"Deleted task with ID(s): {task_ids}")
-
     content = [task for task in content if task['UUID'] not in task_ids]
     write_tasks_file(content)
-    
-    
-
+    print(f"Deleted task with ID(s): {task_ids}")

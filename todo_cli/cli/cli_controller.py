@@ -125,7 +125,7 @@ def delete_one(task_id: List[str] = typer.Argument(None)) -> None:
     if task_id is None or len(task_id) == 0:
         typer.echo("Please provide an ID")
         raise typer.Exit(code=3)
-    elif len(task_id) > 1:
+    if len(task_id) > 1:
         typer.echo("Can not delete more than 1 task at a time.")
         raise typer.Exit(code=3)
 
