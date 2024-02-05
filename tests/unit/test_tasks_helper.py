@@ -2,8 +2,6 @@
 This module contains tests for the tasks_helper module.
 """
 
-from json import load, dump
-from os import path
 from unittest.mock import patch
 from unittest import TestCase
 from typer import Exit
@@ -13,8 +11,7 @@ import pytest
 
 from tests.test_helpers import (
     setup_test_directory,
-    clean_up,
-    STORAGEDIR
+    clean_up
 )
 
 from todo_cli.helpers.tasks_helper import (
@@ -25,7 +22,6 @@ from todo_cli.helpers.tasks_helper import (
     validate_task_ids,
     delete_task
 )
-from todo_cli.cli.cli_controller import app
 
 runner = CliRunner()
 
@@ -107,6 +103,9 @@ class TestTasksHelper(TestCase):
             delete_task(['123'])
 
     def test_delete_task_valid_id_confirmation_no(self):
+        """
+        This function is responsible for testing delete task function when confirmation message gets canceled.
+        """
         write_tasks_file([{"UUID": "123"}])
 
         with patch("typer.confirm", return_value=False) as mock_confirm, \
@@ -123,7 +122,7 @@ class TestTasksHelper(TestCase):
         """
         This function is responsible for testing the delete task
         """
-        result = write_tasks_file([{"UUID": "123"}])
+        write_tasks_file([{"UUID": "123"}])
 
         with patch("typer.confirm", return_value=True) as mock_confirm, \
                 patch("builtins.print") as mock_print:
