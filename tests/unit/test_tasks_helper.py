@@ -104,7 +104,7 @@ class TestTasksHelper(TestCase):
 
     def test_delete_task_valid_id_confirmation_no(self):
         """
-        This function is responsible for testing delete task function when confirmation message gets canceled.
+        This function tests the delete task function when confirmation fails.
         """
         write_tasks_file([{"UUID": "123"}])
 
