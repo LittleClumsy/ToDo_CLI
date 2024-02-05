@@ -1,6 +1,8 @@
 """
 This module contains all logic pertaining to the Tasks.json file.
 """
+from typing import List
+import typer
 
 from todo_cli.helpers.path_helper import join_paths, path_exists
 from todo_cli.helpers.storage_helper import get_storage_directory
@@ -73,3 +75,33 @@ def create_task(task_uuid: str, name: str, date: str, priority: str) -> dict:
     }
 
     return new_task
+
+
+def validate_task_ids(task_ids: List[str], content: List[dict]) -> bool:
+    """
+    Validate if the provided task IDs exist in the task list.
+    """
+    valid_tasks = [task["UUID"] for task in content]
+    return all(task_id in valid_tasks for task_id in task_ids)
+
+
+def delete_task(task_ids: List[str]) -> None:
+    """
+    This function will delete a task based on the task id(s) provided
+    """
+    content = read_tasks_file()
+    if not validate_task_ids(task_ids, content):
+        print("Provided ID(s) could not be found")
+        raise typer.Exit(code=3)
+
+    if not typer.confirm("Are you sure you want to delete this task?"):
+        print("Not deleting task.")
+        raise typer.Exit(code=0)
+    else: 
+        print(f"Deleted task with ID(s): {task_ids}")
+
+    content = [task for task in content if task['UUID'] not in task_ids]
+    write_tasks_file(content)
+    
+    
+

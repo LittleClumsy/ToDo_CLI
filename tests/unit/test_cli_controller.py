@@ -66,7 +66,7 @@ def test_view_command():
 
     expected_table = tabulate(
         [
-            ["abcd1234","laundry", "2023", "Low"]
+            ["abcd1234", "laundry", "2023", "Low"]
         ],
         headers=["UUID", "name", "date", "priority"],
         tablefmt="rounded_grid"
@@ -117,3 +117,27 @@ def test_edit_command_invalid_priority_field():
     )
     assert result.exit_code == 3
     assert result.stdout == "This is an invalid priority value.\n"
+
+
+# @patch('todo_cli.helpers.tasks_helper.delete_task')
+def test_delete_one_no_id():
+    # with patch('todo_cli.helpers.tasks_helper.delete_task') as mock_delete_task:
+    result = runner.invoke(app, ["delete", "one"])
+    # mock_delete_task.assert_not_called()
+    assert result.exit_code == 3
+    assert result.stdout == "Please provide an ID\n"
+
+
+# @patch('todo_cli.helpers.tasks_helper.delete_task')
+def test_delete_one_multiple_ids():
+    # with patch('todo_cli.helpers.tasks_helper.delete_task') as mock_delete_task:
+    result = runner.invoke(app, ["delete", "one", "123", "456"])
+    # mock_delete_task.assert_not_called()
+    assert result.exit_code == 3
+    assert "Can not delete more than 1 task at a time." in result.stdout
+
+
+def test_delete_many_success():
+    result = runner.invoke(app, ["delete", "many"])
+    assert result.exit_code == 3
+    assert "Please provide at least 2 task id's to delete." in result.stdout

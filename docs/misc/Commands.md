@@ -50,4 +50,19 @@ python todo.py edit
 ```
 
 
+### Delete
+
+This command is used to delete tasks. You can use the following command to delete a single task by replaceing 'UUID' with the tasks UUID: 
+
+```bash
+python todo.py delete one UUID
+```
+
+You can also use the following command to delete multiple tasks at once:
+
+```bash
+python todo.py delete many 'UUID' 'UUID'....
+```
+
+
 

@@ -36,3 +36,40 @@ That field does not exist! Please select a valid field to edit.
 ## Adding content
 
 This function works with the create function to add new tasks to tasks.json file. 
+
+## Delete
+
+The delete function allows you to delete tasks. There are 2 options when it comes to deleting tasks:
+delete_one - for deleting a single task.  
+
+```python
+>>> from todo_cli.cli.cli_controller import delete_one
+>>> delete_one('123')
+Deleted task with ID(s): ['123']
+```
+
+```python
+>>> from todo_cli.cli.cli_controller import delete_one
+>>> delete_one()
+Please provide an ID
+```
+
+```python
+>>> from todo_cli.cli.cli_controller import delete_one
+>>> delete_one('123', '456')
+Can not delete more than 1 task at a time.
+```
+
+The second option is delete_many.
+
+```python
+>>> from todo_cli.cli.cli_controller import delete_many
+>>> delete_many('123', '456')
+Deleted task with ID(s): ['123', '456']
+``` 
+
+```python
+>>> from todo_cli.cli.cli_controller import delete_many
+>>> delete_many('123')
+Please provide at least 2 task id's to delete.
+``` 
