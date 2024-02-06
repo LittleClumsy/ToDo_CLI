@@ -1,0 +1,14 @@
+# .github/workflows/release-please.yml
+name: release-please
+on:
+  push:
+    branches:
+      - trunk
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: python
+          default-branch: trunk
