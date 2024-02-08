@@ -49,3 +49,24 @@ The create task function is responsible for creating a task and returning it as 
 {'This is a task': 'This is a task'}
 ```
 
+## Validate task function
+
+The validate task function is responsible for validating that the given id's exist in your task file. It will return a boolean value that will only be True if all the given task id's exist in your tasks.json file.
+
+```python
+>>> from todo_cli.helpers.tasks_helper import validate_task_ids
+>>> validate_task_ids()
+False
+```
+
+## Delete task function
+
+This function is responsible for deleting tasks. Once this function validates that the provided id(s) exist in the tasks file it will delete the task. 
+
+```python
+>>> from todo_cli.helpers.tasks_helper import validate_task_ids
+>>> delete_task(['123'])
+Deleted task with ID(s): ['123']
+```
+
+

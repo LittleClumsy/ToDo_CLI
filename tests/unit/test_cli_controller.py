@@ -66,7 +66,7 @@ def test_view_command():
 
     expected_table = tabulate(
         [
-            ["abcd1234","laundry", "2023", "Low"]
+            ["abcd1234", "laundry", "2023", "Low"]
         ],
         headers=["UUID", "name", "date", "priority"],
         tablefmt="rounded_grid"
@@ -117,3 +117,30 @@ def test_edit_command_invalid_priority_field():
     )
     assert result.exit_code == 3
     assert result.stdout == "This is an invalid priority value.\n"
+
+
+def test_delete_one_no_id():
+    """
+    This will test the delete function when there is no id provided.
+    """
+    result = runner.invoke(app, ["delete", "one"])
+    assert result.exit_code == 3
+    assert result.stdout == "Please provide an ID\n"
+
+
+def test_delete_one_multiple_ids():
+    """
+    This will test the delete function when there are too many ids provided.
+    """
+    result = runner.invoke(app, ["delete", "one", "123", "456"])
+    assert result.exit_code == 3
+    assert "Can not delete more than 1 task at a time." in result.stdout
+
+
+def test_delete_many_no_id():
+    """
+    This will test the delete function when there is no id provided.
+    """
+    result = runner.invoke(app, ["delete", "many"])
+    assert result.exit_code == 3
+    assert "Please provide at least 2 task id's to delete." in result.stdout

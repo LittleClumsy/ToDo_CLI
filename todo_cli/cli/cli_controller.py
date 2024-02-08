@@ -3,6 +3,7 @@ This module contains all logic pertaining to the CLI commands
 """
 import uuid
 from enum import Enum
+from typing import List
 
 from tabulate import tabulate
 
@@ -11,16 +12,19 @@ from typing_extensions import Annotated
 from todo_cli.helpers.tasks_helper import (
     read_tasks_file,
     create_task,
-    write_tasks_file
+    write_tasks_file,
+    delete_task
 )
 
 
 app = typer.Typer()
+delete = typer.Typer()
+app.add_typer(delete, name="delete")
 
 
 class FieldName(str, Enum):
     """
-    This clas contains the possible field names for tasks
+    This class contains the possible field names for tasks
     """
     NAME = "name"
     DATE = "date"
@@ -111,3 +115,30 @@ def adding_content(task_id: str, name: str, date: str, priority: str):
     new_task = create_task(task_id, name, date, priority)
     tasks_data.append(new_task)
     write_tasks_file(tasks_data)
+
+
+@delete.command("one")
+def delete_one(task_id: List[str] = typer.Argument(None)) -> None:
+    """
+    This function will allow you to delete a single task.
+    """
+    if task_id is None or len(task_id) == 0:
+        typer.echo("Please provide an ID")
+        raise typer.Exit(code=3)
+    if len(task_id) > 1:
+        typer.echo("Can not delete more than 1 task at a time.")
+        raise typer.Exit(code=3)
+
+    delete_task(task_id)
+
+
+@delete.command("many")
+def delete_many(task_id: List[str] = typer.Argument(None)) -> None:
+    """
+    This function will allow you to delete multiple tasks.
+    """
+    if task_id is None or len(task_id) <= 1:
+        print("Please provide at least 2 task id's to delete.")
+        raise typer.Exit(code=3)
+
+    delete_task(task_id)
