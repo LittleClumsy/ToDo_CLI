@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.release.outputs.releases_created }}
         run: |
-          pip install -r requirements-dev.txt
+          pip install -r requirements.dev.txt
       - name: Build App
         if: ${{ steps.release.outputs.releases_created }}
         run: |
