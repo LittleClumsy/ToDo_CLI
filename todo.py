@@ -1,6 +1,7 @@
 """
 This module/file is the entry point for the todo application.
 """
+
 # Built-in imports
 import sys
 
@@ -18,7 +19,7 @@ def main() -> int:
     The entry point for the todo application.
 
     Args:
-        args (list[str]): The CLI arguments. 
+        args (list[str]): The CLI arguments.
 
     Returns:
         int: The exit code of the application.
@@ -47,16 +48,15 @@ def install_app() -> None:
     Raises:
         FileNotFoundError: If the application cannot create the storage
             directory or files.
-        TypeError: If you you try to write a value to a JSON file that is not of
-            type dictionary or list.
+        TypeError: If you you try to write a value to a JSON file that is not
+            of type dictionary or list.
     """
     installed_storage_directory = create_storage_directory()
     installed_config_file = install_config_file()
     installed_tasks_file = install_tasks_file()
 
     create_log("Starting application")
-    create_log(
-        f"Installed storage directory: {installed_storage_directory}")
+    create_log(f"Installed storage directory: {installed_storage_directory}")
     create_log(f"Installed config file: {installed_config_file}")
     create_log(f"Installed tasks file: {installed_tasks_file}")
 
