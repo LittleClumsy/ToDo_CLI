@@ -14,6 +14,8 @@ pytest-cov = "*"
 pylint = "*"
 coverage = "*"
 pyinstaller = "*"
+setuptools = "==69.0.2"
+build = "*"
 
 [requires]
 python_version = "3.10"

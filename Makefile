@@ -13,6 +13,8 @@ clean: Pipfile.lock
 	rm -rf ./dist
 	rm -rf ./build
 	rm -rf ./todo.spec
+	rm -rf ./todo_cli.egg-info
+	rm -rf ./.mypy_cache
 
 coverage: test
 	@pipenv run coverage html 
@@ -41,5 +43,10 @@ pipeline:
 	@make lint
 	@make build
 
-build: 
-	@pipenv run pyinstaller --onefile todo.py 
+build:
+	@pipenv run pyinstaller --onefile todo.py
+	@pipenv run python -m build .
+
+requirements:
+	@pipenv requirements > requirements.txt
+	@pipenv requirements --dev > requirements.dev.txt 
