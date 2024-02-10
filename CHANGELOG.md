@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/LittleClumsy/ToDo_CLI/compare/v0.1.0...v0.1.1) (2024-02-10)
+
+
+### Bug Fixes
+
+* **Release-Please:** Fixed dependency step ([48eb2cf](https://github.com/LittleClumsy/ToDo_CLI/commit/48eb2cf56125865cd84031f5b571dcee1c177d53))
+
 ## 0.1.0 (2024-02-10)
 
 
