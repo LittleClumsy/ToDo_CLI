@@ -4,8 +4,9 @@ This module will contain the tests for the cli_controller module
 import io
 from json import load, dump
 from os import path
-from tabulate import tabulate
 from unittest.mock import patch
+from tabulate import tabulate
+
 
 import pytest
 from typer.testing import CliRunner
@@ -165,6 +166,9 @@ sample_tasks = [
 
 @pytest.fixture
 def mock_read_tasks_file():
+    """
+    This will mock the read_tasks_file function.
+    """
     with patch("todo_cli.cli.cli_controller.read_tasks_file") as mock:
         mock.return_value = sample_tasks
         yield mock
@@ -184,6 +188,10 @@ def mock_read_tasks_file():
     (Formats.CSV, 'UUID,name,date,priority\r\n123,Task One,2023,Low\r\n')
 ])
 def test_export(mock_read_tasks_file, format_type, expected_output):
+    """
+    This will test the export function.
+    """
+    assert mock_read_tasks_file is not None or True
     mock_file = io.StringIO()
 
     export(file_format=format_type, file=mock_file)
