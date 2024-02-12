@@ -1,9 +1,11 @@
 """
 This module will contain the tests for the cli_controller module
 """
+import io
 from json import load, dump
 from os import path
 from tabulate import tabulate
+from unittest.mock import patch, MagicMock
 
 import pytest
 from typer.testing import CliRunner
@@ -16,7 +18,12 @@ from tests.test_helpers import (
     setup_test_config,
     setup_test_tasks
 )
-from todo_cli.cli.cli_controller import app
+from todo_cli.cli.cli_controller import (
+    app,
+    export,
+    Formats
+)
+from todo_cli.helpers.tasks_helper import read_tasks_file
 
 
 runner = CliRunner()
@@ -144,3 +151,44 @@ def test_delete_many_no_id():
     result = runner.invoke(app, ["delete", "many"])
     assert result.exit_code == 3
     assert "Please provide at least 2 task id's to delete." in result.stdout
+
+
+# Sample data to be returned by the mock read_tasks_file function
+sample_tasks = [
+    {
+        "UUID": "123",
+        "name": "Task One",
+        "date": "2023",
+        "priority": "Low"
+    }
+]
+
+
+@pytest.fixture
+def mock_read_tasks_file():
+    with patch("todo_cli.cli.cli_controller.read_tasks_file") as mock:
+        mock.return_value = sample_tasks
+        yield mock
+
+
+@pytest.mark.parametrize("format_type,expected_output", [
+    (Formats.JSON,
+     """[
+    {
+        "UUID": "123",
+        "name": "Task One",
+        "date": "2023",
+        "priority": "Low"
+    }
+]"""
+     ),
+    (Formats.CSV, 'UUID,name,date,priority\r\n123,Task One,2023,Low\r\n')
+])
+def test_export(mock_read_tasks_file, format_type, expected_output):
+    mock_file = io.StringIO()
+
+    export(format=format_type, file=mock_file)
+
+    mock_file.seek(0)
+    output = mock_file.read()
+    assert output == expected_output

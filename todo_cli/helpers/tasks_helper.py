@@ -29,12 +29,12 @@ def install_tasks_file() -> bool:
     return False
 
 
-def read_tasks_file() -> str:
+def read_tasks_file() -> dict | list:
     """
     This will read the tasks.json file.
 
     Returns:
-        str: The data from tasks.json file.
+        dict | list: The data from tasks.json file.
     """
     storage_directory = get_storage_directory()
     storage_file = f"{storage_directory}/tasks.json"

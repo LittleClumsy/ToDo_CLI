@@ -64,5 +64,19 @@ You can also use the following command to delete multiple tasks at once:
 python todo.py delete many 'UUID' 'UUID'....
 ```
 
+### Export
+
+This command is used to export your data to a specific file format. You can export to either CSV or JSON.
+
+```bash
+python todo.py export json file_name.json
+```
+
+Or export to CSV file:
+
+```bash
+python todo.py export csv file_name.csv
+```
+
 
 

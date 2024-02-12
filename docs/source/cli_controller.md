@@ -73,3 +73,22 @@ Deleted task with ID(s): ['123', '456']
 >>> delete_many('123')
 Please provide at least 2 task id's to delete.
 ``` 
+
+## Export
+
+The Export function allows you to export your data. There are 2 options when it comes to exporting:
+Exporting to JSON file:
+
+```python
+>>> from todo_cli.cli.cli_controller import export
+>>> export json file_name.json
+File exported as .json file.
+```
+
+Exporting to CSV file:
+
+```python
+>>> from todo_cli.cli.cli_controller import export
+>>> export csv file_name.csv
+File exported as .csv file.
+```
