@@ -5,7 +5,6 @@ import io
 from json import load, dump
 from os import path
 from tabulate import tabulate
-from unittest.mock import patch, MagicMock
 
 import pytest
 from typer.testing import CliRunner
@@ -23,7 +22,6 @@ from todo_cli.cli.cli_controller import (
     export,
     Formats
 )
-from todo_cli.helpers.tasks_helper import read_tasks_file
 
 
 runner = CliRunner()

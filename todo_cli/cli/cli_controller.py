@@ -8,7 +8,6 @@ from enum import Enum
 from typing import List
 
 from tabulate import tabulate
-from pathlib import Path
 
 import typer
 from typing_extensions import Annotated
@@ -18,7 +17,6 @@ from todo_cli.helpers.tasks_helper import (
     write_tasks_file,
     delete_task
 )
-from todo_cli.helpers.storage_helper import get_storage_directory
 
 
 app = typer.Typer()
@@ -47,6 +45,9 @@ class Priority(str, Enum):
 
 
 class Formats(str, Enum):
+    """
+    This class contains the different file types for export function.
+    """
     JSON = "json"
     CSV = "csv"
 
@@ -154,7 +155,7 @@ def delete_many(task_id: List[str] = typer.Argument(None)) -> None:
 
 
 @app.command()
-def export(format: Annotated[Formats,
+def export(file_format: Annotated[Formats,
                              typer.Option(case_sensitive=False, prompt=True)],
            file: Annotated[typer.FileTextWrite, typer.Option(prompt=True)]):
     """
@@ -166,13 +167,13 @@ def export(format: Annotated[Formats,
     """
     content = read_tasks_file()
 
-    if format == Formats.JSON:
+    if file_format == Formats.JSON:
         json.dump(content, file, indent=4)
-    elif format == Formats.CSV:
+    elif file_format == Formats.CSV:
         writer = csv.writer(file)
         writer.writerow(['UUID', 'name', 'date', 'priority'])
         for task in content:
             writer.writerow([task['UUID'], task['name'],
                             task['date'], task['priority']])
 
-    print(f"File exported as .{format} file.")
+    print(f"File exported as .{file_format} file.")
