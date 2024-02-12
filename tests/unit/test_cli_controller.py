@@ -5,6 +5,7 @@ import io
 from json import load, dump
 from os import path
 from tabulate import tabulate
+from unittest.mock import patch
 
 import pytest
 from typer.testing import CliRunner
@@ -185,7 +186,7 @@ def mock_read_tasks_file():
 def test_export(mock_read_tasks_file, format_type, expected_output):
     mock_file = io.StringIO()
 
-    export(format=format_type, file=mock_file)
+    export(file_format=format_type, file=mock_file)
 
     mock_file.seek(0)
     output = mock_file.read()
