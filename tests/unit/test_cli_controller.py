@@ -172,7 +172,7 @@ def test_export_to_csv_file():
     assert result.exit_code == 0
 
     file_result = ''
-    with open('./file.csv', newline='') as file:
+    with open('./file.csv', newline='', encoding="utf-8") as file:
         reader = csv.reader(file)
         for row in reader:
             file_result += ','.join(row) + '\n'
