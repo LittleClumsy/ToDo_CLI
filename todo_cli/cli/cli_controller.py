@@ -161,8 +161,8 @@ def export_to_csv_file(file: str, content: list | dict):
     Args:
         file (str): This is the target file to write data to.
     """
-    with open(file, mode='w', newline='') as file:
-        writer = csv.writer(file)
+    with open(file, mode='w', newline='', encoding="utf-8") as target_file:
+        writer = csv.writer(target_file)
         writer.writerow(['UUID', 'name', 'date', 'priority'])
         for task in content:
             writer.writerow([task['UUID'], task['name'],
