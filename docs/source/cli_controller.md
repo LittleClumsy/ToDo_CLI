@@ -81,7 +81,7 @@ Exporting to JSON file:
 
 ```python
 >>> from todo_cli.cli.cli_controller import export
->>> export json file_name.json
+>>> export("json", "file_name.json")
 File exported as .json file.
 ```
 
@@ -89,6 +89,6 @@ Exporting to CSV file:
 
 ```python
 >>> from todo_cli.cli.cli_controller import export
->>> export csv file_name.csv
+>>> export("csv", "file_name.csv")
 File exported as .csv file.
 ```
