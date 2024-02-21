@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 typer = {extras = ["all"], version = "*"}
 tabulate = "*"
+pandas = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -9,7 +9,7 @@ The create function is used to create a new task. There will be a prompt in the 
 
 ## View
 
-This function is used to view existing tasks. It uses Tabulate to view the tasks in a table format.
+This function will use your config.json file and view existing tasks accordingly. If your display type in your config file is set to 'table' it will it will use Tabulate to view the tasks in a table format. If it is set to 'csv', it will view your tasks in csv format with whatever delimiter is specified in your config.json file. The defualt will be set to tabulate.
 
 ## Edit
 
@@ -91,4 +91,22 @@ Exporting to CSV file:
 >>> from todo_cli.cli.cli_controller import export
 >>> export("csv", "file_name.csv")
 File exported as .csv file.
+```
+
+# Config
+
+The config command will write your display preference to your config file. You can either set it to csv format or table format. If you select csv format, you can specify the delimiter you prefer. 
+
+If you want to view your tasks in table format:
+
+```python
+>>> from todo_cli.cli.cli_controller import config
+>>> config("table")
+```
+
+If you want to view your tasks in csv format:
+
+```python
+>>> from todo_cli.cli.cli_controller import config
+>>> config("csv", "|")
 ```

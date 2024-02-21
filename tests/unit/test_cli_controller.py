@@ -2,11 +2,13 @@
 This module will contain the tests for the cli_controller module
 """
 import csv
+import pandas as pd
 from json import load, dump
 from os import path
 
 from tabulate import tabulate
-
+from io import StringIO
+from contextlib import redirect_stdout
 
 import pytest
 from typer.testing import CliRunner
@@ -20,8 +22,11 @@ from tests.test_helpers import (
     setup_test_tasks
 )
 from todo_cli.cli.cli_controller import (
-    app
+    app,
+    view_tabulate,
+    view_csv
 )
+from todo_cli.config.config_controller import (read_config_file)
 
 
 runner = CliRunner()
@@ -56,27 +61,117 @@ def test_create_command():
     assert file_result[0].get("priority") == "Low"
 
 
-def test_view_command():
+def test_view_tabulate_command():
     """
-    This will test the create command
+    This will test the tabulate view command.
     """
+    task = [
+        {"UUID": "abcd1234",
+                 "name": "Run",
+                 "date": "2022",
+                 "priority": "High"
+         }
+    ]
+
+    f = StringIO()
+    with redirect_stdout(f):
+        view_tabulate(task)
+
+    result = f.getvalue()
+
+    expected_table = tabulate(
+        [
+            ["abcd1234", "Run", "2022", "High"]
+        ],
+        headers=["UUID", "name", "date", "priority"],
+        tablefmt="rounded_grid"
+    )
+    assert result == (expected_table + "\n")
+
+
+def test_view_csv_command():
+    """
+    This will test the csv view command.
+    """
+    task = [
+        {"UUID": "abcd1234",
+         "name": "laundry",
+         "date": "2018",
+         "priority": "Low"
+         }
+    ]
+    f = StringIO()
+    with redirect_stdout(f):
+        view_csv(task, ',')
+
+    result = f.getvalue()
+
+    df = pd.DataFrame(task)
+    expected_csv = df.to_csv(index=False, sep=',')
+
+    assert result == (expected_csv + '\n')
+
+
+def test_view_where_display_type_table():
+    """
+    This will test the view command if the display type in the config file is set to table.
+    """
+    setup_test_config({"display_type": "table",
+                       "delimiter": "null"})
+
     tasks_file = path.join(STORAGEDIR, "tasks.json")
 
     with open(tasks_file, "w", encoding="utf-8") as file:
-        dump([{"UUID": "abcd1234", "name": "laundry",
-             "date": "2023", "priority": "Low"}], file)
+        dump(
+            [
+                {"UUID": "abcd1234",
+                 "name": "Walk",
+                 "date": "2022",
+                 "priority": "Medium"
+                 }
+            ], file
+        )
 
     result = runner.invoke(app, ["view"])
     assert result.exit_code == 0
 
     expected_table = tabulate(
         [
-            ["abcd1234", "laundry", "2023", "Low"]
+            ["abcd1234", "Walk", "2022", "Medium"]
         ],
         headers=["UUID", "name", "date", "priority"],
         tablefmt="rounded_grid"
     )
+
     assert result.stdout == (expected_table + "\n")
+
+
+def test_view_where_display_type_csv():
+    """
+    This will test the view command if the display type in the config file is set to csv.
+    """
+    setup_test_config({"display_type": "csv",
+                       "delimiter": "|"})
+
+    tasks_file = path.join(STORAGEDIR, "tasks.json")
+
+    with open(tasks_file, "w", encoding="utf-8") as file:
+        dump(
+            [
+                {"UUID": "abcd1234",
+                 "name": "laundry",
+                 "date": "2018",
+                 "priority": "Low"
+                 }
+            ], file
+        )
+
+    result = runner.invoke(app, ["view"])
+    assert result.exit_code == 0
+
+    expected_csv = "UUID|name|date|priority\nabcd1234|laundry|2018|Low\n"
+
+    assert result.stdout == (expected_csv + '\n')
 
 
 def test_edit_command():
@@ -177,3 +272,21 @@ def test_export_to_csv_file():
         for row in reader:
             file_result += ','.join(row) + '\n'
     assert file_result == "UUID,name,date,priority\nabcd1234,laundry,2018,Low\n"
+
+
+def test_config_table():
+    """
+    This will test the config function if display_type is table.
+    """
+    runner.invoke(app, ["config"], input="table")
+    config_result = read_config_file()
+    assert config_result == {"delimiter": "null", "display_type": "table"}
+
+
+def test_config_csv():
+    """
+    This will test the config function if display_type is csv.
+    """
+    runner.invoke(app, ["config"], input="csv\n|")
+    config_result = read_config_file()
+    assert config_result == {"delimiter": "|", "display_type": "csv"}

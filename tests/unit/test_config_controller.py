@@ -64,7 +64,7 @@ def test_read_config_file():
     This function is responsible for testing the read_config_file function.
     """
     setup_test_directory()
-    setup_test_config()
+    setup_test_config({"test": "Config"})
     result = read_config_file()
     assert result == {"test": "Config"}
 

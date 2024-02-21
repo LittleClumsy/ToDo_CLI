@@ -1,7 +1,7 @@
 """
 This module contains helper functions for the tests.
 """
-
+import json
 from os import path, makedirs
 from shutil import rmtree
 
@@ -16,13 +16,14 @@ def setup_test_directory():
         makedirs(STORAGEDIR)
 
 
-def setup_test_config(content="{\"test\": \"Config\"}"):
+def setup_test_config(content: dict | list = {"test": "Config"}):
     """
     This function is responsible for setting up the test config.
     """
     config_file = path.join(STORAGEDIR, "config.json")
     with open(config_file, "w", encoding="utf-8") as file:
-        file.write(content)
+        json_content = json.dumps(content, indent=4)
+        file.write(json_content)
 
 
 def setup_test_tasks(content="[]"):

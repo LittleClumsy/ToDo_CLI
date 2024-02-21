@@ -1,6 +1,7 @@
 """
 This module contains all logic pertaining to the CLI commands
 """
+import pandas as pd
 import csv
 import uuid
 from enum import Enum
@@ -16,11 +17,13 @@ from todo_cli.helpers.tasks_helper import (
     write_tasks_file,
     delete_task
 )
+from todo_cli.config.config_controller import write_config_file, read_config_file
 from todo_cli.helpers.json_helper import write_json_file
 
 
 app = typer.Typer()
 delete = typer.Typer()
+
 app.add_typer(delete, name="delete")
 
 
@@ -52,6 +55,14 @@ class Formats(str, Enum):
     CSV = "csv"
 
 
+class Display_types(str, Enum):
+    """
+    This class contains the different display options.
+    """
+    TABLE = "table"
+    CSV = "csv"
+
+
 @app.command()
 def create(
     name: Annotated[str, typer.Option(prompt=True)],
@@ -72,15 +83,48 @@ def create(
     adding_content(task_uuid, name, date, priority)
 
 
-@app.command()
-def view() -> None:
-    """View existing tasks in the form of a table"""
-    tasks = read_tasks_file()
+def view_tabulate(tasks: dict | list) -> None:
+    """
+    This function will view tasks in table format.
+    """
     headers = ["UUID", "name", "date", "priority"]
+
     task_rows = [[task["UUID"], task["name"],
                   task["date"], task["priority"]]for task in tasks]
     table = tabulate(task_rows, headers, tablefmt="rounded_grid")
     print(table)
+
+
+def view_csv(tasks: dict | list, delimiter: str) -> None:
+    """
+    This function will view tasks in csv format.
+
+    args:
+        tasks: These are the tasks in your tasks.json file.
+        delimeter: This will replace the comma in your output.
+    """
+    df = pd.DataFrame(tasks)
+    print(df.to_csv(index=False, sep=delimiter))
+
+
+@app.command()
+def view() -> None:
+    """
+    This function will view your tasks
+    """
+    tasks = read_tasks_file()
+    config = read_config_file()
+
+    if config != {}:
+        display_type = config["display_type"]
+        delimiter = config["delimiter"]
+
+        if display_type == "table":
+            view_tabulate(tasks)
+        elif display_type == "csv":
+            view_csv(tasks, delimiter)
+    else:
+        view_tabulate(tasks)
 
 
 @app.command()
@@ -188,3 +232,18 @@ def export(file_format: Annotated[Formats,
         export_to_csv_file(file, content)
 
     print(f"File exported as .{file_format} file.")
+
+
+@app.command()
+def config(display_type: Annotated[Display_types,
+                                   typer.Option(case_sensitive=False, prompt=True)]) -> None:
+    """
+    View existing tasks in either csv or tablulated.
+    """
+    if display_type == Display_types.CSV:
+        delimiter = typer.prompt("Enter delimiter:", default=",")
+    else:
+        delimiter = "null"
+
+    write_config_file({"display_type": f"{display_type}",
+                       "delimiter": f"{delimiter}", })
