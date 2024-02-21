@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/LittleClumsy/ToDo_CLI/compare/v0.1.1...v0.2.0) (2024-02-21)
+
+
+### Features
+
+* Added config functionality ([1811b19](https://github.com/LittleClumsy/ToDo_CLI/commit/1811b19665f5108fedd9ec06fdc18a3e76653d80))
+* Added export functionality ([4161bc5](https://github.com/LittleClumsy/ToDo_CLI/commit/4161bc50d67b2010b213a6e324257afc41ef9acf))
+* Added export functionality ([aeaad7f](https://github.com/LittleClumsy/ToDo_CLI/commit/aeaad7f6dbc6b1e989dca004c6220c87d6c9d790))
+* Added export functionality ([5f4e760](https://github.com/LittleClumsy/ToDo_CLI/commit/5f4e7604bfcb089a7fb84c60c9583dd7cf20277d))
+* Added export functionality ([c30d60c](https://github.com/LittleClumsy/ToDo_CLI/commit/c30d60c16393f75644a38cdbf61cc637f40eec2b))
+* Added export functionality ([725b563](https://github.com/LittleClumsy/ToDo_CLI/commit/725b563cc500bfae0746f21c5e153e8a82a004fb))
+* Added export functionality ([87212fc](https://github.com/LittleClumsy/ToDo_CLI/commit/87212fc7ffb8ed7d7445713ae9bd64da8872db7a))
+* Added export functionality ([2866a16](https://github.com/LittleClumsy/ToDo_CLI/commit/2866a16850d037995aaac60e686153b710d1efd7))
+* Added export functionality ([e89d920](https://github.com/LittleClumsy/ToDo_CLI/commit/e89d920f783a408c3da3403c427d4230a8c6412c))
+* Added export functionality ([ee02d75](https://github.com/LittleClumsy/ToDo_CLI/commit/ee02d757f619354f92667f84a315fa99a2ac9d43))
+
 ## [0.1.1](https://github.com/LittleClumsy/ToDo_CLI/compare/v0.1.0...v0.1.1) (2024-02-10)
 
 
