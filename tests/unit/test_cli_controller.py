@@ -1,9 +1,12 @@
 """
 This module will contain the tests for the cli_controller module
 """
+import csv
 from json import load, dump
 from os import path
+
 from tabulate import tabulate
+
 
 import pytest
 from typer.testing import CliRunner
@@ -16,7 +19,9 @@ from tests.test_helpers import (
     setup_test_config,
     setup_test_tasks
 )
-from todo_cli.cli.cli_controller import app
+from todo_cli.cli.cli_controller import (
+    app
+)
 
 
 runner = CliRunner()
@@ -144,3 +149,31 @@ def test_delete_many_no_id():
     result = runner.invoke(app, ["delete", "many"])
     assert result.exit_code == 3
     assert "Please provide at least 2 task id's to delete." in result.stdout
+
+
+def test_export_to_csv_file():
+    """
+    This will test the export to csv file function.
+    """
+    tasks_file = path.join(STORAGEDIR, "tasks.json")
+
+    with open(tasks_file, "w", encoding="utf-8") as file:
+        dump(
+            [
+                {"UUID": "abcd1234",
+                 "name": "laundry",
+                 "date": "2018",
+                 "priority": "Low"
+                 }
+            ], file
+        )
+
+    result = runner.invoke(app, ["export"], input="csv\nfile.csv\n")
+    assert result.exit_code == 0
+
+    file_result = ''
+    with open('./file.csv', newline='', encoding="utf-8") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            file_result += ','.join(row) + '\n'
+    assert file_result == "UUID,name,date,priority\nabcd1234,laundry,2018,Low\n"

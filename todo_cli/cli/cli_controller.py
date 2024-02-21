@@ -1,6 +1,7 @@
 """
 This module contains all logic pertaining to the CLI commands
 """
+import csv
 import uuid
 from enum import Enum
 from typing import List
@@ -15,6 +16,7 @@ from todo_cli.helpers.tasks_helper import (
     write_tasks_file,
     delete_task
 )
+from todo_cli.helpers.json_helper import write_json_file
 
 
 app = typer.Typer()
@@ -40,6 +42,14 @@ class Priority(str, Enum):
     MEDIUM = "Medium"
     LOW = "Low"
     VERY_LOW = "Very Low"
+
+
+class Formats(str, Enum):
+    """
+    This class contains the different file types for export function.
+    """
+    JSON = "json"
+    CSV = "csv"
 
 
 @app.command()
@@ -142,3 +152,39 @@ def delete_many(task_id: List[str] = typer.Argument(None)) -> None:
         raise typer.Exit(code=3)
 
     delete_task(task_id)
+
+
+def export_to_csv_file(file: str, content: list | dict):
+    """
+    This function will export data to file in csv format.
+
+    Args:
+        file (str): This is the target file to write data to.
+    """
+    with open(file, mode='w', newline='', encoding="utf-8") as target_file:
+        writer = csv.writer(target_file)
+        writer.writerow(['UUID', 'name', 'date', 'priority'])
+        for task in content:
+            writer.writerow([task['UUID'], task['name'],
+                            task['date'], task['priority']])
+
+
+@app.command()
+def export(file_format: Annotated[Formats,
+                                  typer.Option(case_sensitive=False, prompt=True)],
+           file: Annotated[str, typer.FileTextWrite, typer.Option(prompt=True)]):
+    """
+    This function will export your data to either a JSON or CSV format
+
+    args:
+        file_format(str): This is the format in which you would like to export the file.
+        file(str): This is the file you would like to export your data to.
+    """
+    content = read_tasks_file()
+
+    if file_format == Formats.JSON:
+        write_json_file(file, content)
+    elif file_format == Formats.CSV:
+        export_to_csv_file(file, content)
+
+    print(f"File exported as .{file_format} file.")
