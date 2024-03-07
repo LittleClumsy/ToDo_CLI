@@ -1,13 +1,15 @@
 """
 This module contains all logic pertaining to the CLI commands
 """
-import pandas as pd
 import csv
 import uuid
 from enum import Enum
 from typing import List
+import pandas as pd
 
 from tabulate import tabulate
+from rich.console import Console
+from rich.table import Table
 
 import typer
 from typing_extensions import Annotated
@@ -23,6 +25,7 @@ from todo_cli.helpers.json_helper import write_json_file
 
 app = typer.Typer()
 delete = typer.Typer()
+console = Console()
 
 app.add_typer(delete, name="delete")
 
@@ -55,12 +58,13 @@ class Formats(str, Enum):
     CSV = "csv"
 
 
-class Display_types(str, Enum):
+class DisplayTypes(str, Enum):
     """
     This class contains the different display options.
     """
     TABLE = "table"
     CSV = "csv"
+    RICH = "rich"
 
 
 @app.command()
@@ -86,6 +90,9 @@ def create(
 def view_tabulate(tasks: dict | list) -> None:
     """
     This function will view tasks in table format.
+
+    args:
+        tasks: These are the tasks in your tasks.json file.
     """
     headers = ["UUID", "name", "date", "priority"]
 
@@ -107,24 +114,43 @@ def view_csv(tasks: dict | list, delimiter: str) -> None:
     print(df.to_csv(index=False, sep=delimiter))
 
 
+def view_rich(tasks: dict | list) -> None:
+    """
+    This function will view tasks in table format.
+
+    args:
+        tasks: These are the tasks in your tasks.json file.
+    """
+    table = Table(title="Tasks")
+    table.add_column("UUID", style="cyan", no_wrap=True)
+    table.add_column("Name", style="magenta")
+    table.add_column("Date", style="green")
+    table.add_column("Priority", style="red")
+    for task in tasks:
+        table.add_row(*list(task.values()))
+    console.print(table)
+
+
 @app.command()
 def view() -> None:
     """
     This function will view your tasks
     """
     tasks = read_tasks_file()
-    config = read_config_file()
+    config_file = read_config_file()
 
-    if config != {}:
-        display_type = config["display_type"]
-        delimiter = config["delimiter"]
+    if config_file != {}:
+        display_type = config_file["display_type"]
+        delimiter = config_file["delimiter"]
 
         if display_type == "table":
             view_tabulate(tasks)
         elif display_type == "csv":
             view_csv(tasks, delimiter)
+        elif display_type == "rich":
+            view_rich(tasks)
     else:
-        view_tabulate(tasks)
+        view_rich(tasks)
 
 
 @app.command()
@@ -235,12 +261,12 @@ def export(file_format: Annotated[Formats,
 
 
 @app.command()
-def config(display_type: Annotated[Display_types,
+def config(display_type: Annotated[DisplayTypes,
                                    typer.Option(case_sensitive=False, prompt=True)]) -> None:
     """
     View existing tasks in either csv or tablulated.
     """
-    if display_type == Display_types.CSV:
+    if display_type == DisplayTypes.CSV:
         delimiter = typer.prompt("Enter delimiter:", default=",")
     else:
         delimiter = "null"

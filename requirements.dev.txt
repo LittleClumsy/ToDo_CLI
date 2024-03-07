@@ -9,6 +9,7 @@ exceptiongroup==1.2.0 ; python_version < '3.11'
 iniconfig==2.0.0 ; python_version >= '3.7'
 isort==5.13.2 ; python_full_version >= '3.8.0'
 mccabe==0.7.0 ; python_version >= '3.6'
+pandas==2.2.0
 packaging==23.2 ; python_version >= '3.7'
 platformdirs==4.2.0 ; python_version >= '3.8'
 pluggy==1.4.0 ; python_version >= '3.8'
