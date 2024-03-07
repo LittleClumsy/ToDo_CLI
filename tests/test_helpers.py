@@ -16,10 +16,15 @@ def setup_test_directory():
         makedirs(STORAGEDIR)
 
 
-def setup_test_config(content: dict | list = {"test": "Config"}):
+def setup_test_config(content: dict | list = None):
     """
     This function is responsible for setting up the test config.
     """
+    if content is None:
+        content = {
+            "display": "table",
+            "format": "json"
+        }
     config_file = path.join(STORAGEDIR, "config.json")
     with open(config_file, "w", encoding="utf-8") as file:
         json_content = json.dumps(content, indent=4)

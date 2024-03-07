@@ -132,8 +132,7 @@ def create_expected_output(display_type, data):
         with redirect_stdout(f):
             console = Console()
             console.print(table)
-        console.print(table)
-        return f.getvalue()
+    return f.getvalue()
 
 
 @pytest.mark.parametrize("display_type,delimiter,data",  [
@@ -152,8 +151,6 @@ def test_view_with_different_display_types(display_type, delimiter, data):
     expected_output = create_expected_output(display_type, data)
 
     result = runner.invoke(app, ["view"])
-    print(f"Expected output:\n {expected_output}")
-    print(f"Actual output: \n {result.stdout}")
     assert result.exit_code == 0
     assert result.stdout.rstrip('\n') == expected_output.rstrip('\n')
 
