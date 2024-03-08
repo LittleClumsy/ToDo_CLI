@@ -2,13 +2,15 @@
 This module will contain the tests for the cli_controller module
 """
 import csv
-import pandas as pd
 from json import load, dump
 from os import path
-
-from tabulate import tabulate
 from io import StringIO
 from contextlib import redirect_stdout
+import pandas as pd
+
+from tabulate import tabulate
+from rich.table import Table
+from rich.console import Console
 
 import pytest
 from typer.testing import CliRunner
@@ -112,66 +114,45 @@ def test_view_csv_command():
     assert result == (expected_csv + '\n')
 
 
-def test_view_where_display_type_table():
+def create_expected_output(display_type, data):
     """
-    This will test the view command if the display type in the config file is set to table.
+    This will generate the expected output for our view test.
     """
-    setup_test_config({"display_type": "table",
-                       "delimiter": "null"})
+    if display_type == "table":
+        return tabulate(data, headers=["UUID", "name", "date", "priority"], tablefmt="rounded_grid")
+    if display_type == "csv":
+        return "UUID|name|date|priority\n" + "|".join(data[0])
+    if display_type == "rich":
+        table = Table(title="Tasks")
+        for column in ["UUID", "Name", "Date", "Priority"]:
+            table.add_column(column)
+        for row in data:
+            table.add_row(*row)
+        f = StringIO()
+        with redirect_stdout(f):
+            console = Console()
+            console.print(table)
+    return f.getvalue()
 
-    tasks_file = path.join(STORAGEDIR, "tasks.json")
 
-    with open(tasks_file, "w", encoding="utf-8") as file:
-        dump(
-            [
-                {"UUID": "abcd1234",
-                 "name": "Walk",
-                 "date": "2022",
-                 "priority": "Medium"
-                 }
-            ], file
-        )
+@pytest.mark.parametrize("display_type,delimiter,data",  [
+    ("table", "null", [["abcd1234", "Walk", "2022", "Medium"]]),
+    ("csv", "|", [["abcd1234", "Walk", "2022", "Medium"]]),
+    ("rich", "null", [["abcd1234", "Walk", "2022", "Medium"]])
+])
+def test_view_with_different_display_types(display_type, delimiter, data):
+    """
+    This will test our view function for all format type options.
+    """
+    setup_test_config({"display_type": display_type, "delimiter": delimiter})
+    setup_test_tasks(
+        '''[{"UUID": "abcd1234", "name": "Walk", "date": "2022", "priority": "Medium"}]''')
+
+    expected_output = create_expected_output(display_type, data)
 
     result = runner.invoke(app, ["view"])
     assert result.exit_code == 0
-
-    expected_table = tabulate(
-        [
-            ["abcd1234", "Walk", "2022", "Medium"]
-        ],
-        headers=["UUID", "name", "date", "priority"],
-        tablefmt="rounded_grid"
-    )
-
-    assert result.stdout == (expected_table + "\n")
-
-
-def test_view_where_display_type_csv():
-    """
-    This will test the view command if the display type in the config file is set to csv.
-    """
-    setup_test_config({"display_type": "csv",
-                       "delimiter": "|"})
-
-    tasks_file = path.join(STORAGEDIR, "tasks.json")
-
-    with open(tasks_file, "w", encoding="utf-8") as file:
-        dump(
-            [
-                {"UUID": "abcd1234",
-                 "name": "laundry",
-                 "date": "2018",
-                 "priority": "Low"
-                 }
-            ], file
-        )
-
-    result = runner.invoke(app, ["view"])
-    assert result.exit_code == 0
-
-    expected_csv = "UUID|name|date|priority\nabcd1234|laundry|2018|Low\n"
-
-    assert result.stdout == (expected_csv + '\n')
+    assert result.stdout.rstrip('\n') == expected_output.rstrip('\n')
 
 
 def test_edit_command():
