@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/LittleClumsy/ToDo_CLI/compare/v0.2.0...v0.3.0) (2024-03-08)
+
+
+### Features
+
+* Added rich as a display type ([7800bfc](https://github.com/LittleClumsy/ToDo_CLI/commit/7800bfce9f4cb6afa2d12543df8d2221a664449d))
+* Added rich as a display type ([063545e](https://github.com/LittleClumsy/ToDo_CLI/commit/063545edde94d77e2d4bc3b4d5c38be249bed9d0))
+
 ## [0.2.0](https://github.com/LittleClumsy/ToDo_CLI/compare/v0.1.1...v0.2.0) (2024-02-21)
 
 
